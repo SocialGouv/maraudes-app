@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "from": "Olivier",
+    "message": "message 1 Cum choris saltatricum adseclae cum et dudum respiratione **tenerentur** \n\n adseclae quidem simularunt cum formidatam praecipites indignitatis tenerentur et ut ita ",
+    "creationDate": "2019-10-22T11:54:44.461Z"
+  },
+  {
+    "id": "2",
+    "from": "Julia",
+    "message": "message 2",
+    "creationDate": "2019-10-22T11:54:44.461Z"
+  },
+  {
+    "id": "3",
+    "from": "Julia",
+    "message": "message 3 Cum choris saltatricum adseclae cum et dudum respiratione **tenerentur** ",
+    "creationDate": "2019-10-22T11:54:44.461Z"
+  },
+  {
+    "id": "4",
+    "from": "Olivier",
+    "message": "message 4",
+    "creationDate": "2019-10-22T11:54:44.461Z"
+  }
+]
