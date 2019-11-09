@@ -28,7 +28,7 @@ import AvatarItem from "../components/AvatarItem";
 import todo from "../todo.json";
 
 const formatDueDate = (date: string) =>
-  formatDistanceToNow(new Date(date), { addSuffix: true, locale: fr });
+  formatDistanceToNow(new Date(date), { addSuffix: true, locale: fr }) || "";
 
 export const Tasks: React.FC = () => (
   <IonPage>
@@ -50,7 +50,7 @@ export const Tasks: React.FC = () => (
           text={entry.title}
           detail
           button
-          href={`/task/${entry.id}`}
+          href={`/tasks/${entry.id}`}
         />
       ))}
     </IonContent>

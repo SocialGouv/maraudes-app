@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 import {
   IonList,
@@ -39,26 +40,30 @@ const AvatarItem = ({
   onClick = () => {},
   title = "",
   text = "",
+  href = "",
   ...props
-}) => (
-  <IonItem {...props}>
-    <IonAvatar
-      slot="start"
-      style={{
-        alignSelf: "end",
-        marginTop: "1.5em",
-        background: "#3880ff",
-        ...avatarStyle
-      }}
-    />
-    <IonLabel>
-      <h3 slot="end" style={{ textAlign: "right" }}>
-        {rightText}
-      </h3>
-      <h2>{title}</h2>
-      <p className="ion-text-wrap">{text}</p>
-    </IonLabel>
-  </IonItem>
-);
+}) => {
+  const history = useHistory();
+  return (
+    <IonItem {...props} onClick={() => history.push(href)}>
+      <IonAvatar
+        slot="start"
+        style={{
+          alignSelf: "end",
+          marginTop: "1.5em",
+          background: "#3880ff",
+          ...avatarStyle
+        }}
+      />
+      <IonLabel>
+        <h3 slot="end" style={{ textAlign: "right" }}>
+          {rightText || null}
+        </h3>
+        <h2>{title}</h2>
+        <p className="ion-text-wrap">{text}</p>
+      </IonLabel>
+    </IonItem>
+  );
+};
 
 export default AvatarItem;

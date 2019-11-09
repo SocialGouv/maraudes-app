@@ -1,3 +1,4 @@
+import React from "react";
 import {
   IonCard,
   IonCardContent,
@@ -15,6 +16,9 @@ import {
   IonTitle,
   IonToolbar
 } from "@ionic/react";
+
+import { useHistory } from "react-router-dom";
+
 import {
   home,
   book,
@@ -24,10 +28,11 @@ import {
   clock,
   people
 } from "ionicons/icons";
-import React from "react";
+
 import "./Home.css";
 
 const Home: React.FC = () => {
+  const history = useHistory();
   return (
     <IonPage>
       <IonHeader>
@@ -55,11 +60,11 @@ const Home: React.FC = () => {
         </IonCard>
 
         <IonList lines="none">
-          <IonItem button href="/tasks">
+          <IonItem button onClick={() => history.push("/tasks")}>
             <IonIcon slot="start" color="medium" icon={clock} />
             <IonLabel>Tâches</IonLabel>
           </IonItem>
-          <IonItem button href="/community">
+          <IonItem button onClick={() => history.push("/community")}>
             <IonIcon slot="start" color="medium" icon={people} />
             <IonLabel>Communauté</IonLabel>
           </IonItem>
