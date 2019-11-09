@@ -35,30 +35,21 @@ const Home: React.FC = () => {
   const history = useHistory();
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>
-            <IonIcon icon={home} />
-          </IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent>
         <IonCard className="welcome-card">
+          <img src="/assets/glenn-carstens-peters-rTO4hjAgbDU-unsplash.jpg" />
           <IonCardHeader>
-            <IonCardSubtitle>Maraudes</IonCardSubtitle>
+            <IonCardSubtitle>Bienvenue</IonCardSubtitle>
             <IonCardTitle>Maraudes</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
             <p>
               Cum choris saltatricum adseclae cum et dudum respiratione
               tenerentur adseclae quidem simularunt cum formidatam praecipites
-              indignitatis tenerentur et ut ita ob peregrini sine ne remanerent
-              inopiam ad liberalium cum sine id haut saltatricum magistris
-              interpellata formidatam ad tempus tria paucis.
+              indignitatis tenerentur.
             </p>
           </IonCardContent>
         </IonCard>
-
         <IonList lines="none">
           <IonItem button onClick={() => history.push("/tasks")}>
             <IonIcon slot="start" color="medium" icon={clock} />

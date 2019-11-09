@@ -15,7 +15,6 @@ import Tasks from "./pages/Tasks";
 import Task from "./pages/Task";
 import Home from "./pages/Home";
 import Community from "./pages/Community";
-import Details from "./pages/Details";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";

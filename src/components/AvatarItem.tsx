@@ -51,7 +51,7 @@ const AvatarItem = ({
         style={{
           alignSelf: "end",
           marginTop: "1.5em",
-          background: "#3880ff",
+          background: "var(--ion-color-primary)",
           ...avatarStyle
         }}
       />

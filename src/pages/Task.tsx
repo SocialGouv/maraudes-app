@@ -73,7 +73,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
     <IonHeader>
       <IonToolbar>
         <IonButtons slot="start">
-          <IonBackButton defaultHref="/tasks" />
+          <IonBackButton defaultHref="/tasks" text="Retour" />
         </IonButtons>
         <IonTitle>{(task && task.title) || "Tâche non trouvée"}</IonTitle>
       </IonToolbar>
@@ -109,17 +109,17 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
             <TaskChip
               icon={person}
               text={task.people}
-              avatarStyle={{ background: "#3880ff" }}
+              avatarStyle={{ background: "var(--ion-color-primary)" }}
             />
             <TaskChip
               icon={stopwatch}
               text={`${task.author} il y a ${formatCreationDate(
                 task.creationDate
               )}`}
-              avatarStyle={{ background: "#ffce00" }}
+              avatarStyle={{ background: "var(--ion-color-warning)" }}
             />
             <TaskChip
-              avatarStyle={{ background: "#0ec254" }}
+              avatarStyle={{ background: "var(--ion-color-success)" }}
               icon={pin}
               text={`Lieu : ?`}
             />
@@ -139,7 +139,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
         <IonItem style={{ marginTop: 20 }}>
           <IonAvatar
             slot="start"
-            style={{ alignSelf: "end", background: "#0ec254" }}
+            style={{ alignSelf: "end", background: "var(--ion-color-success)" }}
           />
           <IonTextarea
             style={{ fontSize: "0.9em", height: 100 }}
