@@ -44,7 +44,8 @@ const App: React.FC = () => (
           <Route path="/tasks" component={Tasks} exact={true} />
           <Route path="/task/:id" component={Task} exact={true} />
           <Route path="/community" component={Community} exact={true} />
-          <Route path="/" component={Home} exact={true} />
+          <Route path="/home" component={Home} exact={true} />
+          <Route path="/" exact={true} render={() => <Redirect to="/home" />} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="home" href="/">

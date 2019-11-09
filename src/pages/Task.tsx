@@ -37,6 +37,7 @@ import format from "date-fns/format";
 import { fr } from "date-fns/locale";
 import { calendar, pin, stopwatch, person } from "ionicons/icons";
 
+import AvatarItem from "../components/AvatarItem";
 import todo from "../todo.json";
 import comments from "../comments.json";
 
@@ -50,6 +51,20 @@ interface TaskPageProps
   extends RouteComponentProps<{
     id: string;
   }> {}
+
+const TaskChip = ({ avatarStyle = {}, icon = {}, text = "" }) => (
+  <IonChip>
+    <IonAvatar style={{ background: "#ffce00", ...avatarStyle }}>
+      {icon && (
+        <IonIcon
+          icon={icon}
+          style={{ width: "100%", height: "70%", marginTop: "15%" }}
+        />
+      )}
+    </IonAvatar>
+    <IonLabel>{text}</IonLabel>
+  </IonChip>
+);
 
 const Task: React.FC<TaskPageProps> = ({ match }) => {
   const id = match.params.id;
@@ -91,58 +106,35 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
             <IonCardTitle>{task.title}</IonCardTitle>
           </IonCardHeader>
           <IonCardContent style={{ paddingTop: 0 }}>
-            <IonChip>
-              <IonAvatar style={{ background: "#3880ff" }}>
-                <IonIcon
-                  icon={person}
-                  style={{ width: "100%", height: "70%", marginTop: "15%" }}
-                />
-              </IonAvatar>
-              <IonLabel> {task.people}</IonLabel>
-            </IonChip>
-            <IonChip>
-              <IonAvatar style={{ background: "#ffce00" }}>
-                <IonIcon
-                  icon={stopwatch}
-                  style={{ width: "100%", height: "70%", marginTop: "15%" }}
-                />
-              </IonAvatar>
-              <IonLabel>
-                {task.author} il y a {formatCreationDate(task.creationDate)}
-              </IonLabel>
-            </IonChip>
-            <IonChip>
-              <IonAvatar style={{ background: "#0ec254" }}>
-                <IonIcon
-                  icon={pin}
-                  style={{ width: "100%", height: "70%", marginTop: "15%" }}
-                />
-              </IonAvatar>
-              <IonLabel>Lieu : ?</IonLabel>
-            </IonChip>
+            <TaskChip
+              icon={person}
+              text={task.people}
+              avatarStyle={{ background: "#3880ff" }}
+            />
+            <TaskChip
+              icon={stopwatch}
+              text={`${task.author} il y a ${formatCreationDate(
+                task.creationDate
+              )}`}
+              avatarStyle={{ background: "#ffce00" }}
+            />
+            <TaskChip
+              avatarStyle={{ background: "#0ec254" }}
+              icon={pin}
+              text={`Lieu : ?`}
+            />
             <IonRow style={{ marginTop: 30, fontSize: "1rem" }}>
               {task.description}
             </IonRow>
           </IonCardContent>
         </IonCard>
         {comments.map(comment => (
-          <IonItem key={comment.id}>
-            <IonAvatar
-              slot="start"
-              style={{
-                alignSelf: "end",
-                marginTop: "1.5em",
-                background: "#3880ff"
-              }}
-            />
-            <IonLabel>
-              <h3 slot="end" style={{ textAlign: "right", marginRight: 10 }}>
-                {frenchDate(comment.creationDate)}
-              </h3>
-              <h2>{comment.from}</h2>
-              <p className="ion-text-wrap">{comment.message}</p>
-            </IonLabel>
-          </IonItem>
+          <AvatarItem
+            key={comment.id}
+            rightText={frenchDate(comment.creationDate)}
+            title={comment.from}
+            text={comment.message}
+          />
         ))}
         <IonItem style={{ marginTop: 20 }}>
           <IonAvatar

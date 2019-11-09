@@ -41,7 +41,7 @@ const Home: React.FC = () => {
         <IonCard className="welcome-card">
           <IonCardHeader>
             <IonCardSubtitle>Maraudes</IonCardSubtitle>
-            <IonCardTitle>petite baseline</IonCardTitle>
+            <IonCardTitle>Maraudes</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
             <p>
@@ -55,11 +55,11 @@ const Home: React.FC = () => {
         </IonCard>
 
         <IonList lines="none">
-          <IonItem href="/tasks">
+          <IonItem button href="/tasks">
             <IonIcon slot="start" color="medium" icon={clock} />
             <IonLabel>Tâches</IonLabel>
           </IonItem>
-          <IonItem href="/community">
+          <IonItem button href="/community">
             <IonIcon slot="start" color="medium" icon={people} />
             <IonLabel>Communauté</IonLabel>
           </IonItem>
