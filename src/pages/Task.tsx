@@ -31,13 +31,21 @@ import {
   IonTextarea,
   IonRow
 } from "@ionic/react";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, useHistory } from "react-router";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import format from "date-fns/format";
 import { fr } from "date-fns/locale";
-import { calendar, pin, stopwatch, person } from "ionicons/icons";
+import {
+  calendar,
+  pin,
+  stopwatch,
+  person,
+  checkmarkCircle
+} from "ionicons/icons";
 
 import AvatarItem from "../components/AvatarItem";
+import ButtonFooter from "../components/ButtonFooter";
+
 import todo from "../todo.json";
 import comments from "../comments.json";
 
@@ -69,6 +77,7 @@ const TaskChip = ({ avatarStyle = {}, icon = {}, text = "" }) => (
 const Task: React.FC<TaskPageProps> = ({ match }) => {
   const id = match.params.id;
   const task = todo.find(t => t.id === id);
+  const history = useHistory();
   const header = (
     <IonHeader>
       <IonToolbar>
@@ -88,6 +97,13 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
       </IonPage>
     );
   }
+
+  const closeTask = () => {
+    const yes = window.confirm("Voulez-vous vraiment fermer cette demande ?");
+    if (yes) {
+      history.push("/tasks");
+    }
+  };
 
   return (
     <IonPage>
@@ -143,11 +159,12 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
           <IonButton color="primary">Envoyer</IonButton>
         </IonItem>
       </IonContent>
-      <IonFooter>
-        <IonToolbar className="ion-text-center">
-          <IonButton color="success">Demande terminée</IonButton>
-        </IonToolbar>
-      </IonFooter>
+      <ButtonFooter
+        text="Demande terminée"
+        color="success"
+        icon={checkmarkCircle}
+        onClick={closeTask}
+      />
     </IonPage>
   );
 };

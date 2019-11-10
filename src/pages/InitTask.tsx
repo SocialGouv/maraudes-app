@@ -44,7 +44,9 @@ import { RouteComponentProps, useHistory } from "react-router";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import format from "date-fns/format";
 import { fr } from "date-fns/locale";
-import { calendar, pin, stopwatch, person } from "ionicons/icons";
+import { calendar, pin, stopwatch, person, send } from "ionicons/icons";
+
+import ButtonFooter from "../components/ButtonFooter";
 
 import comments from "../comments.json";
 import community from "../community.json";
@@ -79,24 +81,19 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
         </IonItem>
         <IonItem>
           <IonLabel position="stacked">Date d'échéance</IonLabel>
-          <IonInput type="date"></IonInput>
-          <IonInput type="time"></IonInput>
+          <IonInput type="date" value="2019-11-01"></IonInput>
+          <IonInput type="time" value="09:00"></IonInput>
         </IonItem>
         <IonItem>
           <IonLabel position="stacked">Description *</IonLabel>
           <IonTextarea rows={10}></IonTextarea>
         </IonItem>
       </IonContent>
-      <IonFooter>
-        <IonToolbar className="ion-text-center">
-          <IonButton
-            color="success"
-            onClick={() => history.replace("/tasks/1")}
-          >
-            Enregistrer la demande
-          </IonButton>
-        </IonToolbar>
-      </IonFooter>
+      <ButtonFooter
+        text="enregistrer la demande"
+        icon={send}
+        onClick={() => history.replace("/tasks/1")}
+      />
     </IonPage>
   );
 };

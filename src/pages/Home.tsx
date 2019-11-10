@@ -14,10 +14,13 @@ import {
   IonListHeader,
   IonPage,
   IonTitle,
-  IonToolbar
+  IonToolbar,
+  IonFooter,
+  IonButton
 } from "@ionic/react";
 
 import { useHistory } from "react-router-dom";
+import ButtonFooter from "../components/ButtonFooter";
 
 import {
   home,
@@ -26,7 +29,8 @@ import {
   colorFill,
   grid,
   clock,
-  people
+  people,
+  addCircle
 } from "ionicons/icons";
 
 import "./Home.css";
@@ -61,6 +65,10 @@ const Home: React.FC = () => {
           </IonItem>
         </IonList>
       </IonContent>
+      <ButtonFooter
+        text="nouvelle demande"
+        onClick={() => history.push("/tasks/create")}
+      />
     </IonPage>
   );
 };

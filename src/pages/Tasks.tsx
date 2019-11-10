@@ -27,6 +27,7 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { fr } from "date-fns/locale";
 import { useHistory } from "react-router";
 
+import ButtonFooter from "../components/ButtonFooter";
 import AvatarItem from "../components/AvatarItem";
 import todo from "../todo.json";
 
@@ -64,16 +65,10 @@ export const Tasks: React.FC = () => {
           />
         ))}
       </IonContent>
-      <IonFooter>
-        <IonToolbar className="ion-text-center">
-          <IonButton
-            color="primary"
-            onClick={() => history.push("/tasks/create")}
-          >
-            nouvelle demande
-          </IonButton>
-        </IonToolbar>
-      </IonFooter>
+      <ButtonFooter
+        text="nouvelle demande"
+        onClick={() => history.push("/tasks/create")}
+      />
     </IonPage>
   );
 };

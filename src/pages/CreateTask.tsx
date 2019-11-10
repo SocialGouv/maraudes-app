@@ -46,6 +46,8 @@ import format from "date-fns/format";
 import { fr } from "date-fns/locale";
 import { calendar, pin, stopwatch, person } from "ionicons/icons";
 
+import ButtonFooter from "../components/ButtonFooter";
+
 import comments from "../comments.json";
 import community from "../community.json";
 
@@ -54,7 +56,7 @@ type PeoplePickerProps = {
 };
 
 const PeoplePicker = ({ onClick }: PeoplePickerProps) => (
-  <div>
+  <React.Fragment>
     {community.map(entry => (
       <IonItem key={entry.id} detail button onClick={() => onClick(entry)}>
         <IonAvatar slot="start" style={{ background: "#3880ff" }} />
@@ -63,7 +65,7 @@ const PeoplePicker = ({ onClick }: PeoplePickerProps) => (
         </IonLabel>
       </IonItem>
     ))}
-  </div>
+  </React.Fragment>
 );
 
 type Person = {
@@ -98,13 +100,7 @@ const Task: React.FC = () => {
           }
         />
       </IonContent>
-      <IonFooter>
-        <IonToolbar className="ion-text-center">
-          <IonButton color="success" onClick={addPerson}>
-            nouvelle personne
-          </IonButton>
-        </IonToolbar>
-      </IonFooter>
+      <ButtonFooter text="nouvelle persone" onClick={addPerson} />
     </IonPage>
   );
 };

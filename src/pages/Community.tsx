@@ -27,6 +27,10 @@ import { useHistory } from "react-router";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { fr } from "date-fns/locale";
 
+import { personAdd } from "ionicons/icons";
+
+import ButtonFooter from "../components/ButtonFooter";
+
 import community from "../community.json";
 
 const formatDueDate = (date: string) =>
@@ -68,13 +72,11 @@ export const Community: React.FC = () => {
           </IonItem>
         ))}
       </IonContent>
-      <IonFooter>
-        <IonToolbar className="ion-text-center">
-          <IonButton color="primary" onClick={addPerson}>
-            nouvelle personne
-          </IonButton>
-        </IonToolbar>
-      </IonFooter>
+      <ButtonFooter
+        text="nouvelle personne"
+        icon={personAdd}
+        onClick={addPerson}
+      />
     </IonPage>
   );
 };

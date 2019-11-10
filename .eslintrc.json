@@ -1,6 +1,6 @@
 {
   "extends": [
-    "@socialgouv/eslint-config-recommended",
+    "@socialgouv/tslint-config-recommended",
     "@socialgouv/eslint-config-react"
   ]
 }

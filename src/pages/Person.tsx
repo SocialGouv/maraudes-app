@@ -38,6 +38,7 @@ import { fr } from "date-fns/locale";
 import { calendar, pin, stopwatch, person } from "ionicons/icons";
 
 import AvatarItem from "../components/AvatarItem";
+import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
 
 import community from "../community.json";
@@ -101,21 +102,15 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
             <IonCardTitle>{person.title}</IonCardTitle>
           </IonCardHeader>
           <IonCardContent style={{ paddingTop: 0 }}>
-            détails personne
+            infos personne
           </IonCardContent>
         </IonCard>
         <Comments />
       </IonContent>
-      <IonFooter>
-        <IonToolbar className="ion-text-center">
-          <IonButton
-            color="success"
-            onClick={() => history.push(`/tasks/create/${person.id}`)}
-          >
-            Nouvelle demande
-          </IonButton>
-        </IonToolbar>
-      </IonFooter>
+      <ButtonFooter
+        text="nouvelle demande"
+        onClick={() => history.push(`/tasks/create/${person.id}`)}
+      />
     </IonPage>
   );
 };
