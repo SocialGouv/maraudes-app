@@ -60,8 +60,13 @@ interface TaskPageProps
     id: string;
   }> {}
 
-const TaskChip = ({ avatarStyle = {}, icon = {}, text = "" }) => (
-  <IonChip>
+const TaskChip = ({
+  avatarStyle = {},
+  icon = {},
+  text = "",
+  onClick = () => {}
+}) => (
+  <IonChip onClick={onClick}>
     <IonAvatar style={{ background: "#ffce00", ...avatarStyle }}>
       {icon && (
         <IonIcon
@@ -124,8 +129,9 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
           <IonCardContent style={{ paddingTop: 0 }}>
             <TaskChip
               icon={person}
-              text={task.people}
+              text={task.person}
               avatarStyle={{ background: "var(--ion-color-primary)" }}
+              onClick={() => history.push(`/community/1`)}
             />
             <TaskChip
               icon={stopwatch}

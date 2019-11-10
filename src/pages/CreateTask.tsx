@@ -39,7 +39,7 @@ import { fr } from "date-fns/locale";
 import { calendar, pin, stopwatch, person, personAdd } from "ionicons/icons";
 
 import ButtonFooter from "../components/ButtonFooter";
-import PeoplePicker from "../components/PeoplePicker";
+import PersonPicker from "../components/PersonPicker";
 
 import comments from "../comments.json";
 import community from "../community.json";
@@ -70,7 +70,7 @@ const Task: React.FC = () => {
       </IonHeader>
       <IonContent>
         <h1 style={{ paddingLeft: 10 }}>Personne bénéficiaire :</h1>
-        <PeoplePicker
+        <PersonPicker
           onClick={(person: Person) =>
             history.replace(`/tasks/create/${person.id}`)
           }

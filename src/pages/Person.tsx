@@ -43,6 +43,7 @@ import Comments from "../components/Comments";
 
 import community from "../community.json";
 import comments from "../comments.json";
+import todo from "../todo.json";
 
 const frenchDate = (date: string) =>
   format(new Date(date), "d MMMM à HH'h'mm", { locale: fr });
@@ -85,13 +86,12 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
   );
 
   if (!person) {
-    return (
-      <IonPage>
-        {header}
-        <IonContent>Personne non trouvée</IonContent>
-      </IonPage>
-    );
+    return <IonPage>Not found</IonPage>;
   }
+
+  const tasks = todo.filter(t => t.person === person.title);
+
+  console.log("tasks", tasks);
 
   return (
     <IonPage>
@@ -105,7 +105,28 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
             infos personne
           </IonCardContent>
         </IonCard>
-        <Comments />
+        {tasks.length !== 0 && (
+          <React.Fragment>
+            <h3 style={{ paddingLeft: 20 }}>Demandes</h3>
+            {tasks.map(task => (
+              <AvatarItem
+                key={task.id}
+                rightText={frenchDate(task.creationDate)}
+                title={task.author}
+                text={task.description}
+                onClick={() => history.push(`/tasks/${task.id}`)}
+                details
+                button
+              />
+            ))}
+          </React.Fragment>
+        )}
+        {comments.length !== 0 && (
+          <React.Fragment>
+            <h3 style={{ paddingLeft: 20 }}>Notes</h3>
+            <Comments />
+          </React.Fragment>
+        )}
       </IonContent>
       <ButtonFooter
         text="nouvelle demande"

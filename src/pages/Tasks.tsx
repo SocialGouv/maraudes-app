@@ -56,12 +56,12 @@ export const Tasks: React.FC = () => {
           <AvatarItem
             key={entry.id}
             rightText={formatDueDate(entry.dueDate)}
-            title={entry.people}
+            title={entry.person}
             avatarStyle={{}}
             text={entry.title}
             detail
             button
-            href={`/tasks/${entry.id}`}
+            onClick={() => history.push(`/tasks/${entry.id}`)}
           />
         ))}
       </IonContent>

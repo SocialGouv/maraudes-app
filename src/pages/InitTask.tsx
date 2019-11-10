@@ -61,7 +61,11 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
   const id = match.params.id;
   const person = community.find(t => t.id === id);
   if (!person) {
-    return <div>Personne non trouvée </div>;
+    return (
+      <IonPage>
+        <div>Personne non trouvée </div>
+      </IonPage>
+    );
   }
   return (
     <IonPage>

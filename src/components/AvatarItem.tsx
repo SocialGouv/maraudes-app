@@ -45,7 +45,7 @@ const AvatarItem = ({
 }) => {
   const history = useHistory();
   return (
-    <IonItem {...props} onClick={() => history.push(href)}>
+    <IonItem {...props} onClick={onClick}>
       <IonAvatar
         slot="start"
         style={{

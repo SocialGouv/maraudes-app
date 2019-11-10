@@ -30,7 +30,7 @@ import { fr } from "date-fns/locale";
 import { personAdd } from "ionicons/icons";
 
 import ButtonFooter from "../components/ButtonFooter";
-import PeoplePicker from "../components/PeoplePicker";
+import PersonPicker from "../components/PersonPicker";
 
 import community from "../community.json";
 
@@ -63,7 +63,7 @@ export const Community: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <PeoplePicker
+        <PersonPicker
           onClick={(person: Person) =>
             history.replace(`/community/${person.id}`)
           }
