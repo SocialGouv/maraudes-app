@@ -35,7 +35,7 @@ import {
 } from "@ionic/react";
 
 const AvatarItem = ({
-  avatarStyle = {},
+  avatarProps = {},
   rightText = "",
   onClick = () => {},
   title = "",
@@ -51,9 +51,9 @@ const AvatarItem = ({
         style={{
           alignSelf: "end",
           marginTop: "1.5em",
-          background: "var(--ion-color-primary)",
-          ...avatarStyle
+          background: "var(--ion-color-primary)"
         }}
+        {...avatarProps}
       />
       <IonLabel>
         <h3 slot="end" style={{ textAlign: "right" }}>

@@ -35,7 +35,7 @@ import { RouteComponentProps, useHistory } from "react-router";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import format from "date-fns/format";
 import { fr } from "date-fns/locale";
-import { calendar, pin, stopwatch, person } from "ionicons/icons";
+import { calendar, pin, stopwatch, person, send } from "ionicons/icons";
 
 import AvatarItem from "../components/AvatarItem";
 import ButtonFooter from "../components/ButtonFooter";
@@ -91,8 +91,6 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
 
   const tasks = todo.filter(t => t.person === person.title);
 
-  console.log("tasks", tasks);
-
   return (
     <IonPage>
       {header}
@@ -112,11 +110,24 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
               <AvatarItem
                 key={task.id}
                 rightText={frenchDate(task.creationDate)}
-                title={task.author}
+                title={task.title}
                 text={task.description}
                 onClick={() => history.push(`/tasks/${task.id}`)}
                 details
                 button
+                avatarProps={{
+                  children: (
+                    <IonIcon
+                      icon={send}
+                      style={{
+                        width: "100%",
+                        fill: "white",
+                        height: "60%",
+                        marginTop: "22%"
+                      }}
+                    />
+                  )
+                }}
               />
             ))}
           </React.Fragment>

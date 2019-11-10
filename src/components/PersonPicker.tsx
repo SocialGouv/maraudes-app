@@ -2,6 +2,8 @@ import React from "react";
 
 import community from "../community.json";
 
+import { person } from "ionicons/icons";
+
 import {
   IonList,
   IonText,
@@ -44,7 +46,17 @@ const PeoplePicker = ({ onClick }: PeoplePickerProps) => (
   <React.Fragment>
     {community.map(entry => (
       <IonItem key={entry.id} detail button onClick={() => onClick(entry)}>
-        <IonAvatar slot="start" style={{ background: "#3880ff" }} />
+        <IonAvatar slot="start" style={{ background: "#3880ff" }}>
+          <IonIcon
+            icon={person}
+            style={{
+              width: "100%",
+              fill: "white",
+              height: "60%",
+              marginTop: "22%"
+            }}
+          />
+        </IonAvatar>
         <IonLabel>
           <h2>{entry.title}</h2>
         </IonLabel>

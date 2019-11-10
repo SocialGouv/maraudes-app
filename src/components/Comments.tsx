@@ -39,8 +39,17 @@ import {
 
 import comments from "../comments.json";
 
+import { text } from "ionicons/icons";
+
 const frenchDate = (date: string) =>
   format(new Date(date), "d MMMM à HH'h'mm", { locale: fr });
+
+const TextIcon = () => (
+  <IonIcon
+    icon={text}
+    style={{ width: "100%", height: "60%", marginTop: "22%", fill: "white" }}
+  />
+);
 
 const Comments = () => (
   <React.Fragment>
@@ -50,13 +59,18 @@ const Comments = () => (
         rightText={frenchDate(comment.creationDate)}
         title={comment.from}
         text={comment.message}
+        avatarProps={{
+          children: <TextIcon />
+        }}
       />
     ))}
     <IonItem style={{ marginTop: 20 }}>
       <IonAvatar
         slot="start"
         style={{ alignSelf: "end", background: "var(--ion-color-success)" }}
-      />
+      >
+        <TextIcon />
+      </IonAvatar>
       <IonTextarea
         style={{ fontSize: "0.9em", height: 100 }}
         placeholder="ajouter une note"

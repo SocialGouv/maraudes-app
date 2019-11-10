@@ -16,6 +16,7 @@ import {
   IonHeader,
   IonFooter,
   IonToolbar,
+  IonIcon,
   IonTitle,
   IonButtons,
   IonBackButton,
@@ -30,6 +31,8 @@ import { useHistory } from "react-router";
 import ButtonFooter from "../components/ButtonFooter";
 import AvatarItem from "../components/AvatarItem";
 import todo from "../todo.json";
+
+import { checkmarkCircle, send } from "ionicons/icons";
 
 const formatDueDate = (date: string) =>
   formatDistanceToNow(new Date(date), { addSuffix: true, locale: fr }) || "";
@@ -57,11 +60,28 @@ export const Tasks: React.FC = () => {
             key={entry.id}
             rightText={formatDueDate(entry.dueDate)}
             title={entry.person}
-            avatarStyle={{}}
             text={entry.title}
             detail
             button
             onClick={() => history.push(`/tasks/${entry.id}`)}
+            avatarProps={{
+              style: {
+                background: entry.completedDate
+                  ? "var(--ion-color-success-shade)"
+                  : "var(--ion-color-primary)"
+              },
+              children: (
+                <IonIcon
+                  icon={entry.completedDate ? checkmarkCircle : send}
+                  style={{
+                    width: "100%",
+                    fill: "white",
+                    height: "60%",
+                    marginTop: "22%"
+                  }}
+                />
+              )
+            }}
           />
         ))}
       </IonContent>

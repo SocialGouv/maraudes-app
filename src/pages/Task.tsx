@@ -44,6 +44,7 @@ import {
 } from "ionicons/icons";
 
 import AvatarItem from "../components/AvatarItem";
+import AvatarIcon from "../components/AvatarIcon";
 import ButtonFooter from "../components/ButtonFooter";
 
 import todo from "../todo.json";
@@ -67,14 +68,7 @@ const TaskChip = ({
   onClick = () => {}
 }) => (
   <IonChip onClick={onClick}>
-    <IonAvatar style={{ background: "#ffce00", ...avatarStyle }}>
-      {icon && (
-        <IonIcon
-          icon={icon}
-          style={{ width: "100%", height: "70%", marginTop: "15%" }}
-        />
-      )}
-    </IonAvatar>
+    <AvatarIcon icon={icon} style={avatarStyle} />
     <IonLabel>{text}</IonLabel>
   </IonChip>
 );
@@ -140,6 +134,16 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
               )}`}
               avatarStyle={{ background: "var(--ion-color-warning)" }}
             />
+            {task.completedDate && (
+              <TaskChip
+                icon={checkmarkCircle}
+                text={`complété par ${task.author} il y a ${formatCreationDate(
+                  task.completedDate
+                )}`}
+                avatarStyle={{ background: "var(--ion-color-success)" }}
+              />
+            )}
+
             <IonRow style={{ marginTop: 30, fontSize: "1rem" }}>
               {task.description}
             </IonRow>
@@ -165,12 +169,14 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
           <IonButton color="primary">Envoyer</IonButton>
         </IonItem>
       </IonContent>
-      <ButtonFooter
-        text="Demande terminée"
-        color="success"
-        icon={checkmarkCircle}
-        onClick={closeTask}
-      />
+      {!task.completedDate && (
+        <ButtonFooter
+          text="Demande terminée"
+          color="success"
+          icon={checkmarkCircle}
+          onClick={closeTask}
+        />
+      )}
     </IonPage>
   );
 };
