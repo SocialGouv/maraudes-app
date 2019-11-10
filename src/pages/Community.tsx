@@ -55,7 +55,12 @@ export const Community: React.FC = () => {
       </IonHeader>
       <IonContent>
         {community.map(entry => (
-          <IonItem key={entry.id} detail button href={`/community/${entry.id}`}>
+          <IonItem
+            key={entry.id}
+            detail
+            button
+            onClick={() => history.push(`/community/${entry.id}`)}
+          >
             <IonAvatar slot="start" style={{ background: "#3880ff" }} />
             <IonLabel>
               <h2>{entry.title}</h2>

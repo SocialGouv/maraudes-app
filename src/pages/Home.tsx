@@ -37,7 +37,7 @@ const Home: React.FC = () => {
     <IonPage>
       <IonContent>
         <IonCard className="welcome-card">
-          <img src="/assets/glenn-carstens-peters-rTO4hjAgbDU-unsplash.jpg" />
+          <div className="home-image" />
           <IonCardHeader>
             <IonCardSubtitle>Bienvenue</IonCardSubtitle>
             <IonCardTitle>Maraudes</IonCardTitle>
