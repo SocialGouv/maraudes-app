@@ -132,12 +132,10 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
             ))}
           </React.Fragment>
         )}
-        {comments.length !== 0 && (
-          <React.Fragment>
-            <h3 style={{ paddingLeft: 20 }}>Notes</h3>
-            <Comments />
-          </React.Fragment>
-        )}
+        <React.Fragment>
+          <h3 style={{ paddingLeft: 20 }}>Notes</h3>
+          <Comments />
+        </React.Fragment>
       </IonContent>
       <ButtonFooter
         text="nouvelle demande"

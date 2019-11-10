@@ -39,6 +39,14 @@ const formatDueDate = (date: string) =>
 
 export const Tasks: React.FC = () => {
   const history = useHistory();
+  const sortedTodo = todo.sort((a, b) => {
+    if (new Date(a.dueDate) < new Date(b.dueDate)) {
+      return -1;
+    } else if (new Date(a.dueDate) > new Date(b.dueDate)) {
+      return 1;
+    }
+    return 0;
+  });
   return (
     <IonPage>
       <IonHeader>

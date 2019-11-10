@@ -46,6 +46,7 @@ import {
 import AvatarItem from "../components/AvatarItem";
 import AvatarIcon from "../components/AvatarIcon";
 import ButtonFooter from "../components/ButtonFooter";
+import Comments from "../components/Comments";
 
 import todo from "../todo.json";
 import comments from "../comments.json";
@@ -129,7 +130,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
             />
             <TaskChip
               icon={stopwatch}
-              text={`${task.author} il y a ${formatCreationDate(
+              text={`Crée par ${task.author} il y a ${formatCreationDate(
                 task.creationDate
               )}`}
               avatarStyle={{ background: "var(--ion-color-warning)" }}
@@ -137,9 +138,9 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
             {task.completedDate && (
               <TaskChip
                 icon={checkmarkCircle}
-                text={`complété par ${task.author} il y a ${formatCreationDate(
-                  task.completedDate
-                )}`}
+                text={`fermé par ${
+                  task.completedBy
+                } il y a ${formatCreationDate(task.completedDate)}`}
                 avatarStyle={{ background: "var(--ion-color-success)" }}
               />
             )}
@@ -149,25 +150,10 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
             </IonRow>
           </IonCardContent>
         </IonCard>
-        {comments.map(comment => (
-          <AvatarItem
-            key={comment.id}
-            rightText={frenchDate(comment.creationDate)}
-            title={comment.from}
-            text={comment.message}
-          />
-        ))}
-        <IonItem style={{ marginTop: 20 }}>
-          <IonAvatar
-            slot="start"
-            style={{ alignSelf: "end", background: "var(--ion-color-success)" }}
-          />
-          <IonTextarea
-            style={{ fontSize: "0.9em", height: 100 }}
-            placeholder="ajouter une note"
-          />
-          <IonButton color="primary">Envoyer</IonButton>
-        </IonItem>
+        <React.Fragment>
+          <h3 style={{ paddingLeft: 20 }}>Notes</h3>
+          <Comments />
+        </React.Fragment>
       </IonContent>
       {!task.completedDate && (
         <ButtonFooter
