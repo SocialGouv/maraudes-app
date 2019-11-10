@@ -53,7 +53,7 @@ const Home: React.FC = () => {
         <IonList lines="none">
           <IonItem button onClick={() => history.push("/tasks")}>
             <IonIcon slot="start" color="medium" icon={clock} />
-            <IonLabel>Tâches</IonLabel>
+            <IonLabel>Demandes d'aide</IonLabel>
           </IonItem>
           <IonItem button onClick={() => history.push("/community")}>
             <IonIcon slot="start" color="medium" icon={people} />

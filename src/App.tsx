@@ -13,6 +13,8 @@ import { IonReactRouter } from "@ionic/react-router";
 import { clock, contact, helpBuoy, home } from "ionicons/icons";
 import Tasks from "./pages/Tasks";
 import Task from "./pages/Task";
+import CreateTask from "./pages/CreateTask";
+import InitTask from "./pages/InitTask";
 import Home from "./pages/Home";
 import Community from "./pages/Community";
 
@@ -41,6 +43,8 @@ const App: React.FC = () => (
       <IonTabs>
         <IonRouterOutlet>
           <Route path="/tasks" component={Tasks} exact={true} />
+          <Route path="/tasks/create/:id" component={InitTask} exact={true} />
+          <Route path="/tasks/create" component={CreateTask} exact={true} />
           <Route path="/tasks/:id" component={Task} exact={true} />
           <Route path="/community" component={Community} exact={true} />
           <Route path="/home" component={Home} exact={true} />
@@ -53,7 +57,7 @@ const App: React.FC = () => (
           </IonTabButton>
           <IonTabButton tab="tasks" href="/tasks">
             <IonIcon icon={clock} />
-            <IonLabel>Tâches</IonLabel>
+            <IonLabel>Demandes</IonLabel>
           </IonTabButton>
           <IonTabButton tab="community" href="/community">
             <IonIcon icon={contact} />

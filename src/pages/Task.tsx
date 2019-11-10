@@ -118,11 +118,6 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
               )}`}
               avatarStyle={{ background: "var(--ion-color-warning)" }}
             />
-            <TaskChip
-              avatarStyle={{ background: "var(--ion-color-success)" }}
-              icon={pin}
-              text={`Lieu : ?`}
-            />
             <IonRow style={{ marginTop: 30, fontSize: "1rem" }}>
               {task.description}
             </IonRow>
