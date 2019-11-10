@@ -68,7 +68,7 @@ export const Tasks: React.FC = () => {
         <IonToolbar className="ion-text-center">
           <IonButton
             color="primary"
-            onClick={() => history.replace("/tasks/create")}
+            onClick={() => history.push("/tasks/create")}
           >
             nouvelle demande
           </IonButton>

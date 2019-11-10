@@ -17,6 +17,7 @@ import CreateTask from "./pages/CreateTask";
 import InitTask from "./pages/InitTask";
 import Home from "./pages/Home";
 import Community from "./pages/Community";
+import People from "./pages/People";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -46,6 +47,7 @@ const App: React.FC = () => (
           <Route path="/tasks/create/:id" component={InitTask} exact={true} />
           <Route path="/tasks/create" component={CreateTask} exact={true} />
           <Route path="/tasks/:id" component={Task} exact={true} />
+          <Route path="/community/:id" component={People} exact={true} />
           <Route path="/community" component={Community} exact={true} />
           <Route path="/home" component={Home} exact={true} />
           <Route path="/" exact={true} render={() => <Redirect to="/home" />} />

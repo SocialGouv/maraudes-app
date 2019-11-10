@@ -76,7 +76,8 @@ const Task: React.FC = () => {
     const name = prompt("Nom de la personne ?", "");
     if (name) {
       alert("Create person " + name);
-      // todo : create person and history.replace(`/tasks/create/${person.id}`)
+      // todo : create person and
+      history.replace(`/tasks/create/1`);
     }
   };
   return (

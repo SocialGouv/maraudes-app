@@ -31,14 +31,16 @@ import {
   IonTextarea,
   IonRow
 } from "@ionic/react";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, useHistory } from "react-router";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import format from "date-fns/format";
 import { fr } from "date-fns/locale";
 import { calendar, pin, stopwatch, person } from "ionicons/icons";
 
 import AvatarItem from "../components/AvatarItem";
-import todo from "../todo.json";
+import Comments from "../components/Comments";
+
+import community from "../community.json";
 import comments from "../comments.json";
 
 const frenchDate = (date: string) =>
@@ -68,23 +70,24 @@ const TaskChip = ({ avatarStyle = {}, icon = {}, text = "" }) => (
 
 const Task: React.FC<TaskPageProps> = ({ match }) => {
   const id = match.params.id;
-  const task = todo.find(t => t.id === id);
+  const history = useHistory();
+  const person = community.find(t => t.id === id);
   const header = (
     <IonHeader>
       <IonToolbar>
         <IonButtons slot="start">
-          <IonBackButton defaultHref="/tasks" text="Retour" />
+          <IonBackButton defaultHref="/community" text="Retour" />
         </IonButtons>
-        <IonTitle>{(task && task.title) || "Demande non trouvée"}</IonTitle>
+        <IonTitle>{(person && person.title) || "Demande non trouvée"}</IonTitle>
       </IonToolbar>
     </IonHeader>
   );
 
-  if (!task) {
+  if (!person) {
     return (
       <IonPage>
         {header}
-        <IonContent>Demande non trouvée</IonContent>
+        <IonContent>Personne non trouvée</IonContent>
       </IonPage>
     );
   }
@@ -95,57 +98,22 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
       <IonContent>
         <IonCard>
           <IonCardHeader>
-            <IonCardSubtitle>
-              <IonIcon
-                size="small"
-                icon={calendar}
-                style={{ verticalAlign: "bottom", marginRight: "5px" }}
-              />
-              {frenchDate(task.dueDate)}{" "}
-            </IonCardSubtitle>
-            <IonCardTitle>{task.title}</IonCardTitle>
+            <IonCardTitle>{person.title}</IonCardTitle>
           </IonCardHeader>
           <IonCardContent style={{ paddingTop: 0 }}>
-            <TaskChip
-              icon={person}
-              text={task.people}
-              avatarStyle={{ background: "var(--ion-color-primary)" }}
-            />
-            <TaskChip
-              icon={stopwatch}
-              text={`${task.author} il y a ${formatCreationDate(
-                task.creationDate
-              )}`}
-              avatarStyle={{ background: "var(--ion-color-warning)" }}
-            />
-            <IonRow style={{ marginTop: 30, fontSize: "1rem" }}>
-              {task.description}
-            </IonRow>
+            détails personne
           </IonCardContent>
         </IonCard>
-        {comments.map(comment => (
-          <AvatarItem
-            key={comment.id}
-            rightText={frenchDate(comment.creationDate)}
-            title={comment.from}
-            text={comment.message}
-          />
-        ))}
-        <IonItem style={{ marginTop: 20 }}>
-          <IonAvatar
-            slot="start"
-            style={{ alignSelf: "end", background: "var(--ion-color-success)" }}
-          />
-          <IonTextarea
-            style={{ fontSize: "0.9em", height: 100 }}
-            placeholder="ajouter une note"
-          />
-          <IonButton color="primary">Envoyer</IonButton>
-        </IonItem>
+        <Comments />
       </IonContent>
       <IonFooter>
         <IonToolbar className="ion-text-center">
-          <IonButton color="success">Demande terminée</IonButton>
+          <IonButton
+            color="success"
+            onClick={() => history.push(`/tasks/create/${person.id}`)}
+          >
+            Nouvelle demande
+          </IonButton>
         </IonToolbar>
       </IonFooter>
     </IonPage>
