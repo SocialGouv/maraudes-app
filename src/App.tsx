@@ -10,7 +10,7 @@ import {
   IonTabs
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { clock, contact, helpBuoy, home } from "ionicons/icons";
+import { clock, contact, home } from "ionicons/icons";
 import Tasks from "./pages/Tasks";
 import Task from "./pages/Task";
 import CreateTask from "./pages/CreateTask";

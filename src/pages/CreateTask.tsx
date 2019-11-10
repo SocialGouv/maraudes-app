@@ -1,11 +1,3 @@
-/*
-title
-people
-geo
-dueDate
-
-*/
-
 import React from "react";
 import {
   IonList,
@@ -44,29 +36,13 @@ import { useHistory } from "react-router";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import format from "date-fns/format";
 import { fr } from "date-fns/locale";
-import { calendar, pin, stopwatch, person } from "ionicons/icons";
+import { calendar, pin, stopwatch, person, personAdd } from "ionicons/icons";
 
 import ButtonFooter from "../components/ButtonFooter";
+import PeoplePicker from "../components/PeoplePicker";
 
 import comments from "../comments.json";
 import community from "../community.json";
-
-type PeoplePickerProps = {
-  onClick: Function;
-};
-
-const PeoplePicker = ({ onClick }: PeoplePickerProps) => (
-  <React.Fragment>
-    {community.map(entry => (
-      <IonItem key={entry.id} detail button onClick={() => onClick(entry)}>
-        <IonAvatar slot="start" style={{ background: "#3880ff" }} />
-        <IonLabel>
-          <h2>{entry.title}</h2>
-        </IonLabel>
-      </IonItem>
-    ))}
-  </React.Fragment>
-);
 
 type Person = {
   id: number;
@@ -100,7 +76,11 @@ const Task: React.FC = () => {
           }
         />
       </IonContent>
-      <ButtonFooter text="nouvelle persone" onClick={addPerson} />
+      <ButtonFooter
+        text="nouvelle personne"
+        icon={personAdd}
+        onClick={addPerson}
+      />
     </IonPage>
   );
 };

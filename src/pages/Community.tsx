@@ -30,11 +30,16 @@ import { fr } from "date-fns/locale";
 import { personAdd } from "ionicons/icons";
 
 import ButtonFooter from "../components/ButtonFooter";
+import PeoplePicker from "../components/PeoplePicker";
 
 import community from "../community.json";
 
 const formatDueDate = (date: string) =>
   formatDistanceToNow(new Date(date), { addSuffix: true, locale: fr });
+
+type Person = {
+  id: number;
+};
 
 export const Community: React.FC = () => {
   const history = useHistory();
@@ -58,19 +63,11 @@ export const Community: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        {community.map(entry => (
-          <IonItem
-            key={entry.id}
-            detail
-            button
-            onClick={() => history.push(`/community/${entry.id}`)}
-          >
-            <IonAvatar slot="start" style={{ background: "#3880ff" }} />
-            <IonLabel>
-              <h2>{entry.title}</h2>
-            </IonLabel>
-          </IonItem>
-        ))}
+        <PeoplePicker
+          onClick={(person: Person) =>
+            history.replace(`/community/${person.id}`)
+          }
+        />
       </IonContent>
       <ButtonFooter
         text="nouvelle personne"
