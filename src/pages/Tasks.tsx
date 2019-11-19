@@ -51,9 +51,6 @@ export const Tasks: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="/" text="Retour" />
-          </IonButtons>
           <IonTitle>Demandes d'aide</IonTitle>
         </IonToolbar>
       </IonHeader>

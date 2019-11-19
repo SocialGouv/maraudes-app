@@ -10,7 +10,7 @@ import {
   IonTabs
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { clock, contact, home } from "ionicons/icons";
+import { contact, home, checkmarkCircleOutline } from "ionicons/icons";
 import Tasks from "./pages/Tasks";
 import Task from "./pages/Task";
 import CreateTask from "./pages/CreateTask";
@@ -49,16 +49,19 @@ const App: React.FC = () => (
           <Route path="/tasks/:id" component={Task} exact={true} />
           <Route path="/community/:id" component={Person} exact={true} />
           <Route path="/community" component={Community} exact={true} />
-          <Route path="/home" component={Home} exact={true} />
-          <Route path="/" exact={true} render={() => <Redirect to="/home" />} />
+          <Route
+            path="/"
+            exact={true}
+            render={() => <Redirect to="/tasks" />}
+          />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="home" href="/home">
+          {/*<IonTabButton tab="home" href="/home">
             <IonIcon icon={home} />
             <IonLabel>Accueil</IonLabel>
-          </IonTabButton>
+          </IonTabButton>*/}
           <IonTabButton tab="tasks" href="/tasks">
-            <IonIcon icon={clock} />
+            <IonIcon icon={checkmarkCircleOutline} />
             <IonLabel>Demandes</IonLabel>
           </IonTabButton>
           <IonTabButton tab="community" href="/community">

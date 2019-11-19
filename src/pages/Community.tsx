@@ -56,9 +56,6 @@ export const Community: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="/" text="Retour" />
-          </IonButtons>
           <IonTitle>Personnes</IonTitle>
         </IonToolbar>
       </IonHeader>
