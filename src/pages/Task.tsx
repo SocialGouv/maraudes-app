@@ -157,7 +157,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
       </IonContent>
       {!task.completedDate && (
         <ButtonFooter
-          text="Demande terminée"
+          text="Clotûrer la demande"
           color="success"
           icon={checkmarkCircle}
           onClick={closeTask}

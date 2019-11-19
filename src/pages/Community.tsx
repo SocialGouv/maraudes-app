@@ -59,7 +59,7 @@ export const Community: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" text="Retour" />
           </IonButtons>
-          <IonTitle>Communauté</IonTitle>
+          <IonTitle>Personnes</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>

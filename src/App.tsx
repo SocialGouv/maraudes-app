@@ -63,7 +63,7 @@ const App: React.FC = () => (
           </IonTabButton>
           <IonTabButton tab="community" href="/community">
             <IonIcon icon={contact} />
-            <IonLabel>Communauté</IonLabel>
+            <IonLabel>Personnes</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
