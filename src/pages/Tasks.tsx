@@ -21,7 +21,10 @@ import {
   IonButtons,
   IonBackButton,
   IonPage,
-  IonButton
+  IonButton,
+  IonTabBar,
+  IonTabButton,
+  IonTabs
 } from "@ionic/react";
 
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
@@ -50,7 +53,7 @@ export const Tasks: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonTitle>Demandes d'aide</IonTitle>
         </IonToolbar>
       </IonHeader>

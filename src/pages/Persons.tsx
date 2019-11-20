@@ -55,7 +55,7 @@ export const Persons: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonTitle>Personnes</IonTitle>
         </IonToolbar>
       </IonHeader>

@@ -76,7 +76,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
   const person = persons.find(t => t.id === id);
   const header = (
     <IonHeader>
-      <IonToolbar>
+      <IonToolbar color="primary">
         <IonButtons slot="start">
           <IonBackButton defaultHref="/persons" text="Retour" />
         </IonButtons>
@@ -95,7 +95,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
     <IonPage>
       {header}
       <IonContent>
-        <IonCard>
+        <IonCard class="card">
           <IonCardHeader>
             <IonCardTitle>{person.title}</IonCardTitle>
           </IonCardHeader>
