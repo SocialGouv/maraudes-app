@@ -38,6 +38,7 @@ import { fr } from "date-fns/locale";
 import { calendar, pin, stopwatch, person, send } from "ionicons/icons";
 
 import AvatarItem from "../components/AvatarItem";
+import CheckItem from "../components/CheckItem";
 import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
 
@@ -105,9 +106,9 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
         </IonCard>
         {tasks.length !== 0 && (
           <React.Fragment>
-            <h3 style={{ paddingLeft: 20 }}>Demandes</h3>
+            <h3 style={{ paddingLeft: 20 }}>Demandes en cours</h3>
             {tasks.map(task => (
-              <AvatarItem
+              <CheckItem
                 key={task.id}
                 rightText={frenchDate(task.creationDate)}
                 title={task.title}
@@ -115,19 +116,6 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
                 onClick={() => history.push(`/tasks/${task.id}`)}
                 details
                 button
-                avatarProps={{
-                  children: (
-                    <IonIcon
-                      icon={send}
-                      style={{
-                        width: "100%",
-                        fill: "white",
-                        height: "60%",
-                        marginTop: "22%"
-                      }}
-                    />
-                  )
-                }}
               />
             ))}
           </React.Fragment>
