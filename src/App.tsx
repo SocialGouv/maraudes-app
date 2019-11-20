@@ -16,7 +16,7 @@ import Task from "./pages/Task";
 import CreateTask from "./pages/CreateTask";
 import InitTask from "./pages/InitTask";
 import Home from "./pages/Home";
-import Community from "./pages/Community";
+import Persons from "./pages/Persons";
 import Person from "./pages/Person";
 
 /* Core CSS required for Ionic components to work properly */
@@ -47,8 +47,8 @@ const App: React.FC = () => (
           <Route path="/tasks/create/:id" component={InitTask} exact={true} />
           <Route path="/tasks/create" component={CreateTask} exact={true} />
           <Route path="/tasks/:id" component={Task} exact={true} />
-          <Route path="/community/:id" component={Person} exact={true} />
-          <Route path="/community" component={Community} exact={true} />
+          <Route path="/persons/:id" component={Person} exact={true} />
+          <Route path="/persons" component={Persons} exact={true} />
           <Route
             path="/"
             exact={true}
@@ -64,7 +64,7 @@ const App: React.FC = () => (
             <IonIcon icon={checkmarkCircleOutline} />
             <IonLabel>Demandes</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="community" href="/community">
+          <IonTabButton tab="persons" href="/persons">
             <IonIcon icon={contact} />
             <IonLabel>Personnes</IonLabel>
           </IonTabButton>

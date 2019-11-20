@@ -41,7 +41,7 @@ import AvatarItem from "../components/AvatarItem";
 import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
 
-import community from "../community.json";
+import persons from "../persons.json";
 import comments from "../comments.json";
 import todo from "../todo.json";
 
@@ -73,12 +73,12 @@ const TaskChip = ({ avatarStyle = {}, icon = {}, text = "" }) => (
 const Task: React.FC<TaskPageProps> = ({ match }) => {
   const id = match.params.id;
   const history = useHistory();
-  const person = community.find(t => t.id === id);
+  const person = persons.find(t => t.id === id);
   const header = (
     <IonHeader>
       <IonToolbar>
         <IonButtons slot="start">
-          <IonBackButton defaultHref="/community" text="Retour" />
+          <IonBackButton defaultHref="/persons" text="Retour" />
         </IonButtons>
         <IonTitle>{(person && person.title) || "Demande non trouvée"}</IonTitle>
       </IonToolbar>

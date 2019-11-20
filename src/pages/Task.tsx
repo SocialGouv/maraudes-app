@@ -126,7 +126,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
               icon={person}
               text={task.person}
               avatarStyle={{ background: "var(--ion-color-primary)" }}
-              onClick={() => history.push(`/community/1`)}
+              onClick={() => history.push(`/persons/1`)}
             />
             <TaskChip
               icon={stopwatch}

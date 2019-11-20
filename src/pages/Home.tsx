@@ -59,7 +59,7 @@ const Home: React.FC = () => {
             <IonIcon slot="start" color="medium" icon={clock} />
             <IonLabel>Demandes d'aide</IonLabel>
           </IonItem>
-          <IonItem button onClick={() => history.push("/community")}>
+          <IonItem button onClick={() => history.push("/persons")}>
             <IonIcon slot="start" color="medium" icon={people} />
             <IonLabel>Communauté</IonLabel>
           </IonItem>

@@ -42,7 +42,7 @@ import ButtonFooter from "../components/ButtonFooter";
 import PersonPicker from "../components/PersonPicker";
 
 import comments from "../comments.json";
-import community from "../community.json";
+import persons from "../persons.json";
 
 type Person = {
   id: number;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import community from "../community.json";
+import persons from "../persons.json";
 
 import { person } from "ionicons/icons";
 
@@ -44,7 +44,7 @@ type PeoplePickerProps = {
 
 const PeoplePicker = ({ onClick }: PeoplePickerProps) => (
   <React.Fragment>
-    {community.map(entry => (
+    {persons.map(entry => (
       <IonItem key={entry.id} detail button onClick={() => onClick(entry)}>
         <IonAvatar slot="start" style={{ background: "#3880ff" }}>
           <IonIcon
