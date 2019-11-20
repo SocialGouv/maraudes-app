@@ -1,9 +1,15 @@
 :root {
-
   --ion-font-family: "Raleway", "Roboto", "Helvetica Neue", sans-serif;
   --ion-background-color: #F2F2F2;
   --ion-tab-bar-background: #F9F9F9;
   --ion-toolbar-background: #FFF;
+}
+
+
+h3 {
+  font-size: 1em;
+  font-weight: 700;
+  color: #2553CC;
 }
 
 
@@ -14,20 +20,28 @@
   box-shadow: 1px 0 1px #999;
 }
 
+.comment {
+  background: #FFF;
+  border-radius: 5px;
+  padding: 0 .5em;
+  margin: 0 0 2em;
+}
 
 /*
 .title-md {
   font-weight: 700;
 }
+h2 {
+  font-weight: 700;
+}
+
+
 
 
 .item-label {
   background: #FFF;
 }
 
-h2 {
-  font-weight: 700;
-}
 
 h3 {
   font-size: 16px;
@@ -35,9 +49,4 @@ h3 {
   color: #2553CC;
 }
 
-.comment {
-  background: #FFF;
-  border-radius: 5px;
-  padding: 0 .5em;
-  margin: 0 0 2em;
-}*/
+*/

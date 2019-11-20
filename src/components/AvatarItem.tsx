@@ -45,11 +45,11 @@ const AvatarItem = ({
 }) => {
   const history = useHistory();
   return (
-    <IonItem {...props} onClick={onClick}>
+    <IonItem {...props} onClick={onClick} lines="none">
       <IonAvatar
         slot="start"
         style={{
-          alignSelf: "end",
+          alignSelf: "baseline",
           marginTop: "1.5em",
           background: "var(--ion-color-primary)"
         }}

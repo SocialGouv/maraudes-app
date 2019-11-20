@@ -45,7 +45,7 @@ type PeoplePickerProps = {
 const PeoplePicker = ({ onClick }: PeoplePickerProps) => (
   <React.Fragment>
     {persons.map(entry => (
-      <IonItem key={entry.id} detail button onClick={() => onClick(entry)}>
+      <IonItem key={entry.id} detail button onClick={() => onClick(entry)} lines="none">
         <IonAvatar slot="start" style={{ background: "#3880ff" }}>
           <IonIcon
             icon={person}
