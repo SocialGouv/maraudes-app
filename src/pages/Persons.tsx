@@ -61,9 +61,7 @@ export const Persons: React.FC = () => {
       </IonHeader>
       <IonContent>
         <PersonPicker
-          onClick={(person: Person) =>
-            history.replace(`/persons/${person.id}`)
-          }
+          onClick={(person: Person) => history.replace(`/persons/${person.id}`)}
         />
       </IonContent>
       <ButtonFooter
