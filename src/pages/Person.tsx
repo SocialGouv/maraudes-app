@@ -116,6 +116,10 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
                 onClick={() => history.push(`/tasks/${task.id}`)}
                 details
                 button
+                checkboxProps={{
+                  checked: !!task.completedDate,
+                  children: <IonCheckbox />
+                }}
               />
             ))}
           </React.Fragment>
