@@ -38,10 +38,11 @@ import { fr } from "date-fns/locale";
 import { calendar, pin, stopwatch, person, send } from "ionicons/icons";
 
 import AvatarItem from "../components/AvatarItem";
+import CheckItem from "../components/CheckItem";
 import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
 
-import community from "../community.json";
+import persons from "../persons.json";
 import comments from "../comments.json";
 import todo from "../todo.json";
 
@@ -73,12 +74,12 @@ const TaskChip = ({ avatarStyle = {}, icon = {}, text = "" }) => (
 const Task: React.FC<TaskPageProps> = ({ match }) => {
   const id = match.params.id;
   const history = useHistory();
-  const person = community.find(t => t.id === id);
+  const person = persons.find(t => t.id === id);
   const header = (
     <IonHeader>
-      <IonToolbar>
+      <IonToolbar color="primary">
         <IonButtons slot="start">
-          <IonBackButton defaultHref="/community" text="Retour" />
+          <IonBackButton defaultHref="/persons" text="Retour" />
         </IonButtons>
         <IonTitle>{(person && person.title) || "Demande non trouvée"}</IonTitle>
       </IonToolbar>
@@ -95,7 +96,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
     <IonPage>
       {header}
       <IonContent>
-        <IonCard>
+        <IonCard class="card">
           <IonCardHeader>
             <IonCardTitle>{person.title}</IonCardTitle>
           </IonCardHeader>
@@ -105,9 +106,9 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
         </IonCard>
         {tasks.length !== 0 && (
           <React.Fragment>
-            <h3 style={{ paddingLeft: 20 }}>Demandes</h3>
+            <h3 style={{ paddingLeft: 20 }}>Demandes en cours</h3>
             {tasks.map(task => (
-              <AvatarItem
+              <CheckItem
                 key={task.id}
                 rightText={frenchDate(task.creationDate)}
                 title={task.title}
@@ -115,18 +116,9 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
                 onClick={() => history.push(`/tasks/${task.id}`)}
                 details
                 button
-                avatarProps={{
-                  children: (
-                    <IonIcon
-                      icon={send}
-                      style={{
-                        width: "100%",
-                        fill: "white",
-                        height: "60%",
-                        marginTop: "22%"
-                      }}
-                    />
-                  )
+                checkboxProps={{
+                  checked: !!task.completedDate,
+                  children: <IonCheckbox />
                 }}
               />
             ))}

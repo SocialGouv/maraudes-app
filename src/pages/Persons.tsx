@@ -32,7 +32,7 @@ import { personAdd } from "ionicons/icons";
 import ButtonFooter from "../components/ButtonFooter";
 import PersonPicker from "../components/PersonPicker";
 
-import community from "../community.json";
+import persons from "../persons.json";
 
 const formatDueDate = (date: string) =>
   formatDistanceToNow(new Date(date), { addSuffix: true, locale: fr });
@@ -41,7 +41,7 @@ type Person = {
   id: number;
 };
 
-export const Community: React.FC = () => {
+export const Persons: React.FC = () => {
   const history = useHistory();
 
   const addPerson = () => {
@@ -49,21 +49,19 @@ export const Community: React.FC = () => {
     if (name) {
       alert("Create person " + name);
       // todo : create person and
-      history.replace(`/community/1`);
+      history.replace(`/persons/1`);
     }
   };
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonTitle>Personnes</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <PersonPicker
-          onClick={(person: Person) =>
-            history.replace(`/community/${person.id}`)
-          }
+          onClick={(person: Person) => history.replace(`/persons/${person.id}`)}
         />
       </IonContent>
       <ButtonFooter
@@ -75,4 +73,4 @@ export const Community: React.FC = () => {
   );
 };
 
-export default Community;
+export default Persons;

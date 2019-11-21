@@ -64,16 +64,16 @@ const Comments = () => (
         }}
       />
     ))}
-    <IonItem style={{ marginTop: 20 }}>
+    <IonItem style={{ marginTop: 20 }} lines="none">
       <IonAvatar
         slot="start"
-        style={{ alignSelf: "end", background: "var(--ion-color-success)" }}
+        style={{ alignSelf: "baseline", background: "var(--ion-color-success)" }}
       >
         <TextIcon />
       </IonAvatar>
-      <IonTextarea
+      <IonTextarea class="comment"
         style={{ fontSize: "0.9em", height: 100 }}
-        placeholder="ajouter une note"
+        placeholder="Ajouter un message"
       />
       <IonButton color="primary">Envoyer</IonButton>
     </IonItem>

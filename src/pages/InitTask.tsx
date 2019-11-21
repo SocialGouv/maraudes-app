@@ -49,7 +49,7 @@ import { calendar, pin, stopwatch, person, send } from "ionicons/icons";
 import ButtonFooter from "../components/ButtonFooter";
 
 import comments from "../comments.json";
-import community from "../community.json";
+import persons from "../persons.json";
 
 interface TaskPageProps
   extends RouteComponentProps<{
@@ -59,7 +59,7 @@ interface TaskPageProps
 const Task: React.FC<TaskPageProps> = ({ match }) => {
   const history = useHistory();
   const id = match.params.id;
-  const person = community.find(t => t.id === id);
+  const person = persons.find(t => t.id === id);
   if (!person) {
     return (
       <IonPage>

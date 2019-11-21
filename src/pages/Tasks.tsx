@@ -21,7 +21,10 @@ import {
   IonButtons,
   IonBackButton,
   IonPage,
-  IonButton
+  IonButton,
+  IonTabBar,
+  IonTabButton,
+  IonTabs
 } from "@ionic/react";
 
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
@@ -29,7 +32,7 @@ import { fr } from "date-fns/locale";
 import { useHistory } from "react-router";
 
 import ButtonFooter from "../components/ButtonFooter";
-import AvatarItem from "../components/AvatarItem";
+import CheckItem from "../components/CheckItem";
 import todo from "../todo.json";
 
 import { checkmarkCircle, send } from "ionicons/icons";
@@ -50,7 +53,7 @@ export const Tasks: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonTitle>Demandes d'aide</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -61,31 +64,17 @@ export const Tasks: React.FC = () => {
           </h3>
         )}
         {todo.map(entry => (
-          <AvatarItem
+          <CheckItem
             key={entry.id}
             rightText={formatDueDate(entry.dueDate)}
             title={entry.person}
             text={entry.title}
             detail
             button
-            onClick={() => history.push(`/tasks/${entry.id}`)}
-            avatarProps={{
-              style: {
-                background: entry.completedDate
-                  ? "var(--ion-color-success-shade)"
-                  : "var(--ion-color-primary)"
-              },
-              children: (
-                <IonIcon
-                  icon={entry.completedDate ? checkmarkCircle : send}
-                  style={{
-                    width: "100%",
-                    fill: "white",
-                    height: "60%",
-                    marginTop: "22%"
-                  }}
-                />
-              )
+            onClick= {() => history.push(`/tasks/${entry.id}`) }
+            checkboxProps={{
+              checked: !!entry.completedDate,
+              children: <IonCheckbox />
             }}
           />
         ))}

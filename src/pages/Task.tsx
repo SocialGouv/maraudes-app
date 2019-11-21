@@ -80,7 +80,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
   const history = useHistory();
   const header = (
     <IonHeader>
-      <IonToolbar>
+      <IonToolbar color="primary">
         <IonButtons slot="start">
           <IonBackButton defaultHref="/tasks" text="Retour" />
         </IonButtons>
@@ -109,7 +109,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
     <IonPage>
       {header}
       <IonContent>
-        <IonCard>
+        <IonCard class="card">
           <IonCardHeader>
             <IonCardSubtitle>
               <IonIcon
@@ -126,7 +126,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
               icon={person}
               text={task.person}
               avatarStyle={{ background: "var(--ion-color-primary)" }}
-              onClick={() => history.push(`/community/1`)}
+              onClick={() => history.push(`/persons/1`)}
             />
             <TaskChip
               icon={stopwatch}

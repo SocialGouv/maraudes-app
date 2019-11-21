@@ -34,8 +34,9 @@ import {
   IonRow
 } from "@ionic/react";
 
-const AvatarItem = ({
-  avatarProps = {},
+const CheckItem = ({
+  labelProps = {},
+  checkboxProps = {},
   rightText = "",
   onClick = () => {},
   title = "",
@@ -45,17 +46,17 @@ const AvatarItem = ({
 }) => {
   const history = useHistory();
   return (
-    <IonItem {...props} onClick={onClick} lines="none">
-      <IonAvatar
+    <IonItem {...props} lines="none">
+      <IonCheckbox 
         slot="start"
+        mode="ios"
         style={{
-          alignSelf: "baseline",
+          alignSelf: "auto",
           marginTop: "1.5em",
-          background: "var(--ion-color-primary)"
         }}
-        {...avatarProps}
+        {...checkboxProps}
       />
-      <IonLabel>
+      <IonLabel onClick={onClick}>
         <h3 slot="end" style={{ textAlign: "right" }}>
           {rightText || null}
         </h3>
@@ -66,4 +67,4 @@ const AvatarItem = ({
   );
 };
 
-export default AvatarItem;
+export default CheckItem;
