@@ -71,8 +71,8 @@ export const Tasks: React.FC = () => {
             text={entry.title}
             detail
             button
+            onClick= {() => history.push(`/tasks/${entry.id}`) }
             checkboxProps={{
-              onClick: () => {},
               checked: !!entry.completedDate,
               children: <IonCheckbox />
             }}

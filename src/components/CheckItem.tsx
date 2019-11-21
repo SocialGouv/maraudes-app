@@ -35,6 +35,7 @@ import {
 } from "@ionic/react";
 
 const CheckItem = ({
+  labelProps = {},
   checkboxProps = {},
   rightText = "",
   onClick = () => {},
@@ -45,7 +46,7 @@ const CheckItem = ({
 }) => {
   const history = useHistory();
   return (
-    <IonItem {...props} onClick={onClick} lines="none">
+    <IonItem {...props} lines="none">
       <IonCheckbox 
         slot="start"
         mode="ios"
@@ -55,7 +56,7 @@ const CheckItem = ({
         }}
         {...checkboxProps}
       />
-      <IonLabel>
+      <IonLabel onClick={onClick}>
         <h3 slot="end" style={{ textAlign: "right" }}>
           {rightText || null}
         </h3>
