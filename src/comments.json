@@ -1,25 +1,25 @@
 [
   {
     "id": "1",
-    "from": "Matthieu",
+    "from": "Tony",
     "message": "Je ne l'ai pas vu aujourd'hui !",
     "creationDate": "2019-10-22T11:54:44.461Z"
   },
   {
     "id": "2",
-    "from": "Marie",
+    "from": "Laurie",
     "message": "Noté ! On essaiera de le rencontrer jeudi",
     "creationDate": "2019-10-22T11:54:44.461Z"
   },
   {
     "id": "3",
-    "from": "Marie",
+    "from": "Tony",
     "message": "Croisé en maraude aujourd'hui",
     "creationDate": "2019-10-22T11:54:44.461Z"
   },
   {
     "id": "4",
-    "from": "Matthieu",
+    "from": "Laurie",
     "message": "Parfait, merci beaucoup !",
     "creationDate": "2019-10-22T11:54:44.461Z"
   }
