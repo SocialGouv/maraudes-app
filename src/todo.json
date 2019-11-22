@@ -11,10 +11,10 @@
     },
     {
         "id": "2",
-        "person": "Manon",
+        "person": "Olivier",
         "title": "Rendez-vous RSA",
         "category": "assistance administrative",
-        "dueDate": "2019-11-03T14:20:44.461Z",
+        "dueDate": "2019-11-21T14:20:44.461Z",
         "creationDate": "2019-04-04T14:20:44.461Z",
         "description": "Some description of the task and more details if needed like location, links or whats needed to compelte the task",
         "author": "Julien",
