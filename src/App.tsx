@@ -11,6 +11,8 @@ import {
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { contact, home, checkmarkCircleOutline } from "ionicons/icons";
+import { Provider, createClient } from "urql";
+
 import Tasks from "./pages/Tasks";
 import Task from "./pages/Task";
 import CreateTask from "./pages/CreateTask";
@@ -39,39 +41,46 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import "./theme.css";
 
+const client = createClient({
+  url: "http://127.0.0.1:8088/v1/graphql?secret=secret"
+});
+
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route path="/tasks" component={Tasks} exact={true} />
-          <Route path="/tasks/create/:id" component={InitTask} exact={true} />
-          <Route path="/tasks/create" component={CreateTask} exact={true} />
-          <Route path="/tasks/:id" component={Task} exact={true} />
-          <Route path="/persons/:id" component={Person} exact={true} />
-          <Route path="/persons" component={Persons} exact={true} />
-          <Route
-            path="/"
-            exact={true}
-            render={() => <Redirect to="/tasks" />}
-          />
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          {/*<IonTabButton tab="home" href="/home">
+    <Provider value={client}>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route path="/tasks" component={Tasks} exact={true} />
+            <Route path="/tasks/create/:id" component={InitTask} exact={true} />
+            <Route path="/tasks/create" component={CreateTask} exact={true} />
+            <Route path="/tasks/:id" component={Task} exact={true} />
+            <Route path="/persons/:id" component={Person} exact={true} />
+            <Route path="/persons" component={Persons} exact={true} />
+            <Route
+              path="/"
+              exact={true}
+              render={() => <Redirect to="/tasks" />}
+            />
+          </IonRouterOutlet>
+          <IonTabBar slot="bottom">
+            {/*<IonTabButton tab="home" href="/home">
             <IonIcon icon={home} />
             <IonLabel>Accueil</IonLabel>
           </IonTabButton>*/}
-          <IonTabButton tab="tasks" href="/tasks">
-            <IonIcon icon={checkmarkCircleOutline} />
-            <IonLabel>Demandes</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="persons" href="/persons">
-            <IonIcon icon={contact} />
-            <IonLabel>Personnes</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
+            <IonTabButton tab="tasks" href="/tasks">
+              <IonIcon icon={checkmarkCircleOutline} />
+              <IonLabel>Demandes</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="persons" href="/persons">
+              <IonIcon icon={contact} />
+              <IonLabel>Personnes</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </Provider>
+    ;
   </IonApp>
 );
 

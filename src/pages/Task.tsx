@@ -47,15 +47,16 @@ import AvatarItem from "../components/AvatarItem";
 import AvatarIcon from "../components/AvatarIcon";
 import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
+import GraphQLFetch from "../components/GraphQLFetch";
 
 import todo from "../todo.json";
 import comments from "../comments.json";
 
 const frenchDate = (date: string) =>
-  format(new Date(date), "d MMMM à HH'h'mm", { locale: fr });
+  (date && format(new Date(date), "d MMMM à HH'h'mm", { locale: fr })) || "";
 
 const formatCreationDate = (date: string) =>
-  formatDistanceToNow(new Date(date), { locale: fr });
+  (date && formatDistanceToNow(new Date(date), { locale: fr })) || "";
 
 interface TaskPageProps
   extends RouteComponentProps<{
@@ -74,9 +75,28 @@ const TaskChip = ({
   </IonChip>
 );
 
+const queryTask = `{
+  todos_by_pk(id: "7271fcea-d7e0-44cf-b169-5a3b13f6d111") {
+    title
+    text
+    person{
+      title
+    }
+    created_user{
+      username
+    }
+    created_at
+    completed_at
+    completed_user{
+      username
+    }
+    expiration_at
+  }
+}`;
+
 const Task: React.FC<TaskPageProps> = ({ match }) => {
   const id = match.params.id;
-  const task = todo.find(t => t.id === id);
+  //  const task = todo.find(t => t.id === id);
   const history = useHistory();
   const header = (
     <IonHeader>
@@ -84,85 +104,87 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
         <IonButtons slot="start">
           <IonBackButton defaultHref="/tasks" text="Retour" />
         </IonButtons>
-        <IonTitle>{(task && task.title) || "Demande non trouvée"}</IonTitle>
+        {/*<IonTitle>{(task && task.title) || "Demande non trouvée"}</IonTitle>*/}
       </IonToolbar>
     </IonHeader>
   );
 
-  if (!task) {
-    return (
-      <IonPage>
-        {header}
-        <IonContent>Demande non trouvée</IonContent>
-      </IonPage>
-    );
-  }
-
   const closeTask = () => {
     const yes = window.confirm("Voulez-vous vraiment fermer cette demande ?");
     if (yes) {
+      // todo
       history.push("/tasks");
     }
   };
 
   return (
     <IonPage>
-      {header}
-      <IonContent>
-        <IonCard class="card">
-          <IonCardHeader>
-            <IonCardSubtitle>
-              <IonIcon
-                size="small"
-                icon={calendar}
-                style={{ verticalAlign: "bottom", marginRight: "5px" }}
-              />
-              {frenchDate(task.dueDate)}{" "}
-            </IonCardSubtitle>
-            <IonCardTitle>{task.title}</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent style={{ paddingTop: 0 }}>
-            <TaskChip
-              icon={person}
-              text={task.person}
-              avatarStyle={{ background: "var(--ion-color-primary)" }}
-              onClick={() => history.push(`/persons/1`)}
-            />
-            <TaskChip
-              icon={stopwatch}
-              text={`Crée par ${task.author} il y a ${formatCreationDate(
-                task.creationDate
-              )}`}
-              avatarStyle={{ background: "var(--ion-color-warning)" }}
-            />
-            {task.completedDate && (
-              <TaskChip
-                icon={checkmarkCircle}
-                text={`fermé par ${
-                  task.completedBy
-                } il y a ${formatCreationDate(task.completedDate)}`}
-                avatarStyle={{ background: "var(--ion-color-success)" }}
-              />
-            )}
+      <GraphQLFetch
+        query={queryTask}
+        render={({ result }) => {
+          const task = result.data.todos_by_pk;
+          return (
+            <React.Fragment>
+              {header}
+              <IonContent>
+                <IonCard class="card">
+                  <IonCardHeader>
+                    <IonCardSubtitle>
+                      <IonIcon
+                        size="small"
+                        icon={calendar}
+                        style={{ verticalAlign: "bottom", marginRight: "5px" }}
+                      />
+                      {frenchDate(task.expiration_at)}{" "}
+                    </IonCardSubtitle>
+                    <IonCardTitle>{task.title}</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent style={{ paddingTop: 0 }}>
+                    <TaskChip
+                      icon={person}
+                      text={task.person.title}
+                      avatarStyle={{ background: "var(--ion-color-primary)" }}
+                      onClick={() => history.push(`/persons/1`)}
+                    />
+                    <TaskChip
+                      icon={stopwatch}
+                      text={`Crée par ${
+                        task.created_user.username
+                      } il y a ${formatCreationDate(task.created_at)}`}
+                      avatarStyle={{ background: "var(--ion-color-warning)" }}
+                    />
+                    {task.completed_at && (
+                      <TaskChip
+                        icon={checkmarkCircle}
+                        text={`fermé par ${
+                          task.completed_user.username
+                        } il y a ${formatCreationDate(task.completed_at)}`}
+                        avatarStyle={{ background: "var(--ion-color-success)" }}
+                      />
+                    )}
 
-            <IonRow style={{ marginTop: 30, fontSize: "1rem" }}>
-              {task.description}
-            </IonRow>
-          </IonCardContent>
-        </IonCard>
-        <React.Fragment>
-          <h3 style={{ paddingLeft: 20 }}>Notes</h3>
-          <Comments />
-        </React.Fragment>
-      </IonContent>
-      {!task.completedDate && (
-        <ButtonFooter
-          text="Clotûrer la demande"
-          color="success"
-          icon={checkmarkCircle}
-          onClick={closeTask}
-        />
-      )}
+                    <IonRow style={{ marginTop: 30, fontSize: "1rem" }}>
+                      {task.text}
+                    </IonRow>
+                  </IonCardContent>
+                </IonCard>
+                <React.Fragment>
+                  <h3 style={{ paddingLeft: 20 }}>Notes</h3>
+                  <Comments />
+                </React.Fragment>
+              </IonContent>
+              {!task.completedDate && (
+                <ButtonFooter
+                  text="Clotûrer la demande"
+                  color="success"
+                  icon={checkmarkCircle}
+                  onClick={closeTask}
+                />
+              )}
+            </React.Fragment>
+          );
+        }}
+      />
     </IonPage>
   );
 };
