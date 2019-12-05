@@ -28,7 +28,7 @@ const frenchDate = date =>
 const Task = ({ match }) => {
   const id = match.params.id;
   const history = useHistory();
-  const person = persons.find(t => t.id === id);
+  const person = [].find(t => t.id === id);
   const header = (
     <IonHeader>
       <IonToolbar color="primary">
@@ -44,7 +44,7 @@ const Task = ({ match }) => {
     return <IonPage>Not found</IonPage>;
   }
 
-  const tasks = todo.filter(t => t.person === person.title);
+  const tasks = [].filter(t => t.person === person.title);
 
   return (
     <IonPage>

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-
+import PropTypes from "prop-types";
 import { useMutation } from "urql";
 import format from "date-fns/format";
 import { fr } from "date-fns/locale";
-
 import uuidv4 from "uuid/v4";
-
+import { text } from "ionicons/icons";
 import {
   IonItem,
   IonAvatar,
@@ -14,12 +13,10 @@ import {
   IonTextarea
 } from "@ionic/react";
 
-//import comments from "../comments.json";
-
-import { text } from "ionicons/icons";
-
 import AvatarItem from "../components/AvatarItem";
 import GraphQLFetch from "../components/GraphQLFetch";
+import getTodoMessages from "../queries/getTodoMessages";
+import postMessage from "../mutations/postMessage";
 
 const frenchDate = date =>
   format(new Date(date), "d MMMM à HH'h'mm", { locale: fr });
@@ -31,21 +28,10 @@ const TextIcon = () => (
   />
 );
 
-// type AddCommentProps = {
-//   onAddComment: any;
-// };
-
-const AddComment = ({ onAddComment, variables }) => {
+const AddComment = ({ onAddComment, variables = {} }) => {
   const [value, setValue] = useState("");
   const [status, setStatus] = useState("idle");
-  const [, executeMutation] = useMutation(
-    `
-mutation PostMessage($id: uuid!, $todo_id: uuid, $person_id: uuid, $text: String!) {
-  insert_messages(objects: {id: $id, todo_id: $todo_id, person_id: $person_id, text: $text}) {
-    affected_rows
-  }
-}`
-  );
+  const [, executeMutation] = useMutation(postMessage);
 
   const onSubmit = () => {
     setStatus("submitting");
@@ -97,21 +83,13 @@ mutation PostMessage($id: uuid!, $todo_id: uuid, $person_id: uuid, $text: String
   );
 };
 
-const getTaskMessagesQuery = `query ($todo_id: uuid!) {
-  todos_by_pk(id: $todo_id) {
-    messages(order_by: {created_at: asc}) {
-      id,
-      text,
-      created_user {
-        username
-      }
-      created_at
-    }
-  }
-}`;
+AddComment.propTypes = {
+  onAddComment: PropTypes.func.isRequired,
+  variables: PropTypes.object
+};
 
 const Comments = variables => {
-  const query = variables.todo_id ? getTaskMessagesQuery : "";
+  const query = variables.todo_id ? getTodoMessages : "";
   return (
     <GraphQLFetch
       query={query}
