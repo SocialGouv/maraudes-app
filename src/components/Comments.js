@@ -15,7 +15,7 @@ import {
 
 import AvatarItem from "../components/AvatarItem";
 import GraphQLFetch from "../components/GraphQLFetch";
-import getTodoMessages from "../queries/getTodoMessages";
+import getTaskMessages from "../queries/getTaskMessages";
 import postMessage from "../mutations/postMessage";
 
 const frenchDate = date =>
@@ -89,7 +89,7 @@ AddComment.propTypes = {
 };
 
 const Comments = variables => {
-  const query = variables.todo_id ? getTodoMessages : "";
+  const query = variables.todo_id ? getTaskMessages : "";
   return (
     <GraphQLFetch
       query={query}

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router";
+import { useMutation } from "urql";
+import uuidv4 from "uuid/v4";
 import { send } from "ionicons/icons";
 import {
   IonItem,
@@ -19,10 +21,36 @@ import {
 import ButtonFooter from "../components/ButtonFooter";
 import GraphQLFetch from "../components/GraphQLFetch";
 import personInfo from "../queries/personInfo";
+import createTask from "../mutations/createTask";
 
 const InitTask = ({ match }) => {
-  const history = useHistory();
   const id = match.params.id;
+
+  const [values, setValues] = useState({ person_id: id });
+  const [status, setStatus] = useState("idle");
+  const [, executeMutation] = useMutation(createTask);
+  const history = useHistory();
+
+  const onSubmit = () => {
+    const uuid = uuidv4();
+    setStatus("submitting");
+    executeMutation({
+      id: uuid,
+      ...values
+    })
+      .then(result => {
+        console.log("result", result);
+        if (result.error) {
+          alert("Impossible d'envoyer le message :/");
+          throw result.error;
+        }
+        setStatus("error");
+        history.replace(`/tasks/${uuid}`);
+      })
+      .catch(() => {
+        setStatus("error");
+      });
+  };
 
   return (
     <IonPage>
@@ -45,16 +73,36 @@ const InitTask = ({ match }) => {
                 <h2 style={{ paddingLeft: 10 }}>Demande pour {person.title}</h2>
                 <IonItem>
                   <IonLabel position="stacked">Titre de la demande *</IonLabel>
-                  <IonInput></IonInput>
+                  <IonInput
+                    onKeyUp={e =>
+                      setValues({ ...values, title: e.target.value })
+                    }
+                  ></IonInput>
                 </IonItem>
                 <IonItem>
                   <IonLabel position="stacked">Date d&apos;échéance</IonLabel>
-                  <IonInput type="date" value="2019-11-01"></IonInput>
-                  <IonInput type="time" value="09:00"></IonInput>
+                  <IonInput
+                    onBlur={e =>
+                      console.log(e.target.value) ||
+                      setValues({ ...values, date: e.target.value })
+                    }
+                    type="date"
+                    value="2019-11-01"
+                  ></IonInput>
+                  <IonInput
+                    onBlur={e => setValues({ ...values, time: e.target.value })}
+                    type="time"
+                    value="09:00"
+                  ></IonInput>
                 </IonItem>
                 <IonItem>
                   <IonLabel position="stacked">Description *</IonLabel>
-                  <IonTextarea rows={10}></IonTextarea>
+                  <IonTextarea
+                    onKeyUp={e =>
+                      setValues({ ...values, text: e.target.value })
+                    }
+                    rows={10}
+                  ></IonTextarea>
                 </IonItem>
               </React.Fragment>
             );
@@ -64,7 +112,7 @@ const InitTask = ({ match }) => {
       <ButtonFooter
         text="enregistrer la demande"
         icon={send}
-        onClick={() => history.replace("/tasks/1")}
+        onClick={onSubmit}
       />
     </IonPage>
   );
