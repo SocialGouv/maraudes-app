@@ -1,5 +1,4 @@
 import React from "react";
-
 import { IonAvatar, IonIcon } from "@ionic/react";
 
 const AvatarIcon = ({ icon = {}, style = {} }) => (

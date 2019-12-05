@@ -1,42 +1,19 @@
 import React from "react";
-import {
-  IonList,
-  IonItem,
-  IonLabel,
-  IonInput,
-  IonToggle,
-  IonRadio,
-  IonCheckbox,
-  IonItemSliding,
-  IonItemOption,
-  IonItemOptions,
-  IonListHeader,
-  IonContent,
-  IonAvatar,
-  IonHeader,
-  IonFooter,
-  IonToolbar,
-  IonIcon,
-  IonTitle,
-  IonButtons,
-  IonBackButton,
-  IonPage,
-  IonButton,
-  IonTabBar,
-  IonTabButton,
-  IonTabs
-} from "@ionic/react";
-
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { fr } from "date-fns/locale";
 import { useHistory } from "react-router";
+import {
+  IonCheckbox,
+  IonContent,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonPage
+} from "@ionic/react";
 
 import GraphQLFetch from "../components/GraphQLFetch";
 import ButtonFooter from "../components/ButtonFooter";
 import CheckItem from "../components/CheckItem";
-import todo from "../todo.json";
-
-import { checkmarkCircle, send } from "ionicons/icons";
 
 const formatDueDate = date =>
   (date &&
@@ -80,7 +57,7 @@ export const Tasks = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar color="primary">
-          <IonTitle>Demandes d'aide</IonTitle>
+          <IonTitle>Demandes d&apos;aide</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>

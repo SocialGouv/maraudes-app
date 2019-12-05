@@ -1,24 +1,15 @@
 import React from "react";
+import { useHistory } from "react-router";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import format from "date-fns/format";
+import { fr } from "date-fns/locale";
+import { calendar, stopwatch, person, checkmarkCircle } from "ionicons/icons";
 import {
-  IonList,
-  IonItem,
   IonLabel,
-  IonInput,
-  IonToggle,
-  IonRadio,
-  IonCheckbox,
-  IonItemSliding,
-  IonItemOption,
-  IonItemOptions,
-  IonListHeader,
   IonContent,
-  IonAvatar,
-  IonFooter,
   IonHeader,
   IonIcon,
-  IonButton,
   IonToolbar,
-  IonTitle,
   IonButtons,
   IonBackButton,
   IonPage,
@@ -28,29 +19,13 @@ import {
   IonCardTitle,
   IonCardContent,
   IonChip,
-  IonTextarea,
   IonRow
 } from "@ionic/react";
-import { RouteComponentProps, useHistory } from "react-router";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import format from "date-fns/format";
-import { fr } from "date-fns/locale";
-import {
-  calendar,
-  pin,
-  stopwatch,
-  person,
-  checkmarkCircle
-} from "ionicons/icons";
 
-import AvatarItem from "../components/AvatarItem";
 import AvatarIcon from "../components/AvatarIcon";
 import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
 import GraphQLFetch from "../components/GraphQLFetch";
-
-//import todo from "../todo.json";
-//import comments from "../comments.json";
 
 const frenchDate = date =>
   (date && format(new Date(date), "d MMMM à HH'h'mm", { locale: fr })) || "";

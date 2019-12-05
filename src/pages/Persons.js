@@ -1,47 +1,19 @@
 import React from "react";
+import { useHistory } from "react-router";
+import { personAdd } from "ionicons/icons";
+
 import {
-  IonList,
-  IonItem,
-  IonLabel,
-  IonInput,
-  IonToggle,
-  IonRadio,
-  IonCheckbox,
-  IonItemSliding,
-  IonItemOption,
-  IonItemOptions,
-  IonListHeader,
   IonContent,
-  IonAvatar,
   IonHeader,
   IonToolbar,
   IonTitle,
-  IonButtons,
-  IonBackButton,
-  IonPage,
-  IonButton,
-  IonFooter
+  IonPage
 } from "@ionic/react";
-
-import { useHistory } from "react-router";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import { fr } from "date-fns/locale";
-
-import { personAdd } from "ionicons/icons";
 
 import ButtonFooter from "../components/ButtonFooter";
 import PersonPicker from "../components/PersonPicker";
 
-import persons from "../persons.json";
-
-const formatDueDate = (date: string) =>
-  formatDistanceToNow(new Date(date), { addSuffix: true, locale: fr });
-
-type Person = {
-  id: number;
-};
-
-export const Persons: React.FC = () => {
+export const Persons = () => {
   const history = useHistory();
 
   const addPerson = () => {
@@ -61,7 +33,7 @@ export const Persons: React.FC = () => {
       </IonHeader>
       <IonContent>
         <PersonPicker
-          onClick={(person: Person) => history.replace(`/persons/${person.id}`)}
+          onClick={person => history.replace(`/persons/${person.id}`)}
         />
       </IonContent>
       <ButtonFooter

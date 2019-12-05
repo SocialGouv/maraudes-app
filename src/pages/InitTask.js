@@ -1,62 +1,23 @@
-/*
-title
-people
-geo
-dueDate
-
-*/
-
 import React from "react";
+import { useHistory } from "react-router";
+import { send } from "ionicons/icons";
 import {
-  IonList,
-  IonText,
   IonItem,
   IonLabel,
   IonInput,
-  IonToggle,
-  IonRadio,
-  IonCheckbox,
-  IonItemSliding,
-  IonItemOption,
-  IonItemOptions,
-  IonListHeader,
   IonContent,
-  IonAvatar,
-  IonFooter,
   IonHeader,
-  IonIcon,
-  IonButton,
   IonToolbar,
   IonTitle,
   IonButtons,
   IonBackButton,
   IonPage,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonCardContent,
-  IonChip,
-  IonTextarea,
-  IonRow
+  IonTextarea
 } from "@ionic/react";
-import { RouteComponentProps, useHistory } from "react-router";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import format from "date-fns/format";
-import { fr } from "date-fns/locale";
-import { calendar, pin, stopwatch, person, send } from "ionicons/icons";
 
 import ButtonFooter from "../components/ButtonFooter";
 
-import comments from "../comments.json";
-import persons from "../persons.json";
-
-interface TaskPageProps
-  extends RouteComponentProps<{
-    id: string;
-  }> {}
-
-const Task: React.FC<TaskPageProps> = ({ match }) => {
+const InitTask = ({ match }) => {
   const history = useHistory();
   const id = match.params.id;
   const person = persons.find(t => t.id === id);
@@ -84,7 +45,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
           <IonInput></IonInput>
         </IonItem>
         <IonItem>
-          <IonLabel position="stacked">Date d'échéance</IonLabel>
+          <IonLabel position="stacked">Date d&apos;échéance</IonLabel>
           <IonInput type="date" value="2019-11-01"></IonInput>
           <IonInput type="time" value="09:00"></IonInput>
         </IonItem>
@@ -102,4 +63,4 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
   );
 };
 
-export default Task;
+export default InitTask;

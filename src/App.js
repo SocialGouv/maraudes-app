@@ -1,5 +1,8 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
+import { IonReactRouter } from "@ionic/react-router";
+import { contact, checkmarkCircleOutline } from "ionicons/icons";
+import { Provider, createClient } from "urql";
 import {
   IonApp,
   IonIcon,
@@ -9,15 +12,11 @@ import {
   IonTabButton,
   IonTabs
 } from "@ionic/react";
-import { IonReactRouter } from "@ionic/react-router";
-import { contact, home, checkmarkCircleOutline } from "ionicons/icons";
-import { Provider, createClient } from "urql";
 
 import Tasks from "./pages/Tasks";
 import Task from "./pages/Task";
 import CreateTask from "./pages/CreateTask";
 import InitTask from "./pages/InitTask";
-import Home from "./pages/Home";
 import Persons from "./pages/Persons";
 import Person from "./pages/Person";
 
@@ -41,7 +40,7 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import "./theme.css";
 
-import getToken from "./getToken";
+import { getToken } from "./token";
 
 const client = createClient({
   url: "http://127.0.0.1:8088/v1/graphql",
@@ -53,7 +52,7 @@ const client = createClient({
   }
 });
 
-const App: React.FC = () => (
+const App = () => (
   <IonApp>
     <Provider value={client}>
       <IonReactRouter>
@@ -72,10 +71,6 @@ const App: React.FC = () => (
             />
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
-            {/*<IonTabButton tab="home" href="/home">
-            <IonIcon icon={home} />
-            <IonLabel>Accueil</IonLabel>
-          </IonTabButton>*/}
             <IonTabButton tab="tasks" href="/tasks">
               <IonIcon icon={checkmarkCircleOutline} />
               <IonLabel>Demandes</IonLabel>

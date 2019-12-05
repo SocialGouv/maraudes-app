@@ -1,38 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-
-import {
-  IonList,
-  IonItem,
-  IonLabel,
-  IonInput,
-  IonToggle,
-  IonRadio,
-  IonCheckbox,
-  IonItemSliding,
-  IonItemOption,
-  IonItemOptions,
-  IonListHeader,
-  IonContent,
-  IonAvatar,
-  IonFooter,
-  IonHeader,
-  IonIcon,
-  IonButton,
-  IonToolbar,
-  IonTitle,
-  IonButtons,
-  IonBackButton,
-  IonPage,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonCardContent,
-  IonChip,
-  IonTextarea,
-  IonRow
-} from "@ionic/react";
+import { IonItem, IonLabel, IonAvatar } from "@ionic/react";
 
 const AvatarItem = ({
   avatarProps = {},

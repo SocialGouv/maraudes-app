@@ -1,54 +1,20 @@
 import React from "react";
+import { useHistory } from "react-router";
+import { personAdd } from "ionicons/icons";
 import {
-  IonList,
-  IonText,
-  IonItem,
-  IonLabel,
-  IonInput,
-  IonToggle,
-  IonRadio,
-  IonCheckbox,
-  IonItemSliding,
-  IonItemOption,
-  IonItemOptions,
-  IonListHeader,
   IonContent,
-  IonAvatar,
-  IonFooter,
   IonHeader,
-  IonIcon,
-  IonButton,
   IonToolbar,
   IonTitle,
   IonButtons,
   IonBackButton,
-  IonPage,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonCardContent,
-  IonChip,
-  IonTextarea,
-  IonRow
+  IonPage
 } from "@ionic/react";
-import { useHistory } from "react-router";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import format from "date-fns/format";
-import { fr } from "date-fns/locale";
-import { calendar, pin, stopwatch, person, personAdd } from "ionicons/icons";
 
 import ButtonFooter from "../components/ButtonFooter";
 import PersonPicker from "../components/PersonPicker";
 
-import comments from "../comments.json";
-import persons from "../persons.json";
-
-type Person = {
-  id: number;
-};
-
-const Task: React.FC = () => {
+const Task = () => {
   const history = useHistory();
   const addPerson = () => {
     const name = prompt("Nom de la personne ?", "");
@@ -71,9 +37,7 @@ const Task: React.FC = () => {
       <IonContent>
         <h1 style={{ paddingLeft: 10 }}>Personne bénéficiaire :</h1>
         <PersonPicker
-          onClick={(person: Person) =>
-            history.replace(`/tasks/create/${person.id}`)
-          }
+          onClick={person => history.replace(`/tasks/create/${person.id}`)}
         />
       </IonContent>
       <ButtonFooter

@@ -1,38 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import {
-  IonList,
-  IonItem,
-  IonLabel,
-  IonInput,
-  IonToggle,
-  IonRadio,
-  IonCheckbox,
-  IonItemSliding,
-  IonItemOption,
-  IonItemOptions,
-  IonListHeader,
-  IonContent,
-  IonAvatar,
-  IonFooter,
-  IonHeader,
-  IonIcon,
-  IonButton,
-  IonToolbar,
-  IonTitle,
-  IonButtons,
-  IonBackButton,
-  IonPage,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonCardContent,
-  IonChip,
-  IonTextarea,
-  IonRow
-} from "@ionic/react";
+import { IonItem, IonLabel, IonCheckbox } from "@ionic/react";
 
 const CheckItem = ({
   labelProps = {},
@@ -47,12 +16,12 @@ const CheckItem = ({
   const history = useHistory();
   return (
     <IonItem {...props} lines="none">
-      <IonCheckbox 
+      <IonCheckbox
         slot="start"
         mode="ios"
         style={{
           alignSelf: "auto",
-          marginTop: "1.5em",
+          marginTop: "1.5em"
         }}
         {...checkboxProps}
       />

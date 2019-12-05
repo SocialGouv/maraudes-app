@@ -1,22 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router";
+import format from "date-fns/format";
+import { fr } from "date-fns/locale";
+
 import {
-  IonList,
-  IonItem,
-  IonLabel,
-  IonInput,
-  IonToggle,
-  IonRadio,
   IonCheckbox,
-  IonItemSliding,
-  IonItemOption,
-  IonItemOptions,
-  IonListHeader,
   IonContent,
-  IonAvatar,
-  IonFooter,
   IonHeader,
-  IonIcon,
-  IonButton,
   IonToolbar,
   IonTitle,
   IonButtons,
@@ -24,54 +14,18 @@ import {
   IonPage,
   IonCard,
   IonCardHeader,
-  IonCardSubtitle,
   IonCardTitle,
-  IonCardContent,
-  IonChip,
-  IonTextarea,
-  IonRow
+  IonCardContent
 } from "@ionic/react";
-import { RouteComponentProps, useHistory } from "react-router";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import format from "date-fns/format";
-import { fr } from "date-fns/locale";
-import { calendar, pin, stopwatch, person, send } from "ionicons/icons";
 
-import AvatarItem from "../components/AvatarItem";
 import CheckItem from "../components/CheckItem";
 import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
 
-import persons from "../persons.json";
-//import comments from "../comments.json";
-import todo from "../todo.json";
-
-const frenchDate = (date: string) =>
+const frenchDate = date =>
   format(new Date(date), "d MMMM à HH'h'mm", { locale: fr });
 
-const formatCreationDate = (date: string) =>
-  formatDistanceToNow(new Date(date), { locale: fr });
-
-interface TaskPageProps
-  extends RouteComponentProps<{
-    id: string;
-  }> {}
-
-const TaskChip = ({ avatarStyle = {}, icon = {}, text = "" }) => (
-  <IonChip>
-    <IonAvatar style={{ background: "#ffce00", ...avatarStyle }}>
-      {icon && (
-        <IonIcon
-          icon={icon}
-          style={{ width: "100%", height: "70%", marginTop: "15%" }}
-        />
-      )}
-    </IonAvatar>
-    <IonLabel>{text}</IonLabel>
-  </IonChip>
-);
-
-const Task: React.FC<TaskPageProps> = ({ match }) => {
+const Task = ({ match }) => {
   const id = match.params.id;
   const history = useHistory();
   const person = persons.find(t => t.id === id);

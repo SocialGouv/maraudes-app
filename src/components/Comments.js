@@ -7,36 +7,11 @@ import { fr } from "date-fns/locale";
 import uuidv4 from "uuid/v4";
 
 import {
-  IonList,
   IonItem,
-  IonLabel,
-  IonInput,
-  IonToggle,
-  IonRadio,
-  IonCheckbox,
-  IonItemSliding,
-  IonItemOption,
-  IonItemOptions,
-  IonListHeader,
-  IonContent,
   IonAvatar,
-  IonFooter,
-  IonHeader,
   IonIcon,
   IonButton,
-  IonToolbar,
-  IonTitle,
-  IonButtons,
-  IonBackButton,
-  IonPage,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonCardContent,
-  IonChip,
-  IonTextarea,
-  IonRow
+  IonTextarea
 } from "@ionic/react";
 
 //import comments from "../comments.json";
@@ -63,7 +38,7 @@ const TextIcon = () => (
 const AddComment = ({ onAddComment, variables }) => {
   const [value, setValue] = useState("");
   const [status, setStatus] = useState("idle");
-  const [result, executeMutation] = useMutation(
+  const [, executeMutation] = useMutation(
     `
 mutation PostMessage($id: uuid!, $todo_id: uuid, $person_id: uuid, $text: String!) {
   insert_messages(objects: {id: $id, todo_id: $todo_id, person_id: $person_id, text: $text}) {
