@@ -43,7 +43,7 @@ import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
 
 import persons from "../persons.json";
-import comments from "../comments.json";
+//import comments from "../comments.json";
 import todo from "../todo.json";
 
 const frenchDate = (date: string) =>
@@ -126,7 +126,7 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
         )}
         <React.Fragment>
           <h3 style={{ paddingLeft: 20 }}>Notes</h3>
-          <Comments />
+          <Comments person_id={person.id} />
         </React.Fragment>
       </IonContent>
       <ButtonFooter

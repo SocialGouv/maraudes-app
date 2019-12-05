@@ -41,8 +41,16 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import "./theme.css";
 
+import getToken from "./getToken";
+
 const client = createClient({
-  url: "http://127.0.0.1:8088/v1/graphql?secret=secret"
+  url: "http://127.0.0.1:8088/v1/graphql",
+  fetchOptions: () => {
+    const token = getToken();
+    return {
+      headers: { authorization: token ? `Bearer ${token}` : "" }
+    };
+  }
 });
 
 const App: React.FC = () => (

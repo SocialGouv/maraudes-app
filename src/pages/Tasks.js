@@ -38,18 +38,12 @@ import todo from "../todo.json";
 
 import { checkmarkCircle, send } from "ionicons/icons";
 
-const formatDueDate = (date: string) =>
+const formatDueDate = date =>
   (date &&
     formatDistanceToNow(new Date(date), { addSuffix: true, locale: fr })) ||
   "";
 
-type TodoItem = {
-  expiration_at: string;
-};
-
-type Todos = [TodoItem];
-
-const sortTodos = (a: TodoItem, b: TodoItem) => {
+const sortTodos = (a, b) => {
   if (new Date(a.expiration_at) < new Date(b.expiration_at)) {
     return -1;
   } else if (new Date(a.expiration_at) > new Date(b.expiration_at)) {
@@ -57,8 +51,6 @@ const sortTodos = (a: TodoItem, b: TodoItem) => {
   }
   return 0;
 };
-
-type TodosState = [Todos];
 
 const queryTasks = `{
   todos {
@@ -78,15 +70,11 @@ const queryTasks = `{
     }
     messages(order_by: {created_at: desc}) {
       id
-      created_at
-      created_user {
-        username
-      }
     }
   }
 }`;
 
-export const Tasks: React.FC = () => {
+export const Tasks = () => {
   const history = useHistory();
   return (
     <IonPage>
@@ -101,7 +89,7 @@ export const Tasks: React.FC = () => {
           render={({ result }) =>
             (result.data &&
               result.data.todos.length &&
-              result.data.todos.sort(sortTodos).map((task: any) => (
+              result.data.todos.sort(sortTodos).map(task => (
                 <CheckItem
                   key={task.id}
                   rightText={formatDueDate(task.expiration_at)}

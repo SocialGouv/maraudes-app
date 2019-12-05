@@ -49,19 +49,14 @@ import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
 import GraphQLFetch from "../components/GraphQLFetch";
 
-import todo from "../todo.json";
-import comments from "../comments.json";
+//import todo from "../todo.json";
+//import comments from "../comments.json";
 
-const frenchDate = (date: string) =>
+const frenchDate = date =>
   (date && format(new Date(date), "d MMMM à HH'h'mm", { locale: fr })) || "";
 
-const formatCreationDate = (date: string) =>
+const formatCreationDate = date =>
   (date && formatDistanceToNow(new Date(date), { locale: fr })) || "";
-
-interface TaskPageProps
-  extends RouteComponentProps<{
-    id: string;
-  }> {}
 
 const TaskChip = ({
   avatarStyle = {},
@@ -77,6 +72,7 @@ const TaskChip = ({
 
 const queryTask = `{
   todos_by_pk(id: "7271fcea-d7e0-44cf-b169-5a3b13f6d111") {
+    id
     title
     text
     person{
@@ -94,7 +90,7 @@ const queryTask = `{
   }
 }`;
 
-const Task: React.FC<TaskPageProps> = ({ match }) => {
+const Task = ({ match }) => {
   const id = match.params.id;
   //  const task = todo.find(t => t.id === id);
   const history = useHistory();
@@ -170,10 +166,10 @@ const Task: React.FC<TaskPageProps> = ({ match }) => {
                 </IonCard>
                 <React.Fragment>
                   <h3 style={{ paddingLeft: 20 }}>Notes</h3>
-                  <Comments />
+                  <Comments todo_id={task.id} />
                 </React.Fragment>
               </IonContent>
-              {!task.completedDate && (
+              {!task.completed_at && (
                 <ButtonFooter
                   text="Clotûrer la demande"
                   color="success"
