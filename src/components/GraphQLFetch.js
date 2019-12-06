@@ -23,25 +23,6 @@ const GraphQLFetch = ({ query, variables = {}, render }) => {
       }}
     </Query>
   );
-
-  // const [result, executeQuery] = useQuery({
-  //   query,
-  //   variables,
-  //   requestPolicy: "network-only"
-  // });
-
-  // //console.log("GraphQLFetch", query, variables, result);
-
-  // if (result.error) return <div>Erreur :/ {result.error.message}</div>;
-  // const finished = !result.fetching && !result.error;
-  // const refetch = () => executeQuery({ requestPolicy: "network-only" });
-  // if (finished) {
-  //   return render({
-  //     result,
-  //     refetch
-  //   });
-  // }
-  // return <div>chargement...</div>;
 };
 
 GraphQLFetch.propTypes = {

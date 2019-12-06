@@ -68,7 +68,7 @@ export const Tasks = () => {
       <IonContent>
         <GraphQLFetch
           query={getTasks}
-          render={({ data, refetch }) =>
+          render={({ data }) =>
             (data &&
               data.todos.length &&
               data.todos.sort(sortTodos).map(task => (
@@ -85,7 +85,7 @@ export const Tasks = () => {
                       e.preventDefault();
                       // cancel action when already checked
                       if (!task.completed_at) {
-                        onCheckBoxClick(task, refetch);
+                        onCheckBoxClick(task);
                       } else {
                         e.target.checked = !e.target.checked;
                       }

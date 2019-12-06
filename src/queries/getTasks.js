@@ -1,5 +1,6 @@
 const getTasks = `{
   todos {
+    __typename
     id
     title
     expiration_at
