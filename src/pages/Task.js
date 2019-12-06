@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import format from "date-fns/format";
 import { fr } from "date-fns/locale";
 import { calendar, stopwatch, person, checkmarkCircle } from "ionicons/icons";
+import { useMutation } from "urql";
+
 import {
   IonLabel,
   IonContent,
@@ -27,6 +29,8 @@ import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
 import GraphQLFetch from "../components/GraphQLFetch";
 import getTask from "../queries/getTask";
+import completeTask from "../mutations/completeTask";
+import getUserId from "../getUserId";
 
 const frenchDate = date =>
   (date && format(new Date(date), "d MMMM à HH'h'mm", { locale: fr })) || "";
@@ -48,8 +52,10 @@ const TaskChip = ({
 
 const Task = ({ match }) => {
   const taskId = match.params.id;
-  //  const task = todo.find(t => t.id === id);
   const history = useHistory();
+  const currentUserId = getUserId();
+  const [, executeMutation] = useMutation(completeTask);
+
   const header = (
     <IonHeader>
       <IonToolbar color="primary">
@@ -65,7 +71,24 @@ const Task = ({ match }) => {
     const yes = window.confirm("Voulez-vous vraiment fermer cette demande ?");
     if (yes) {
       // todo
-      history.push("/tasks");
+      executeMutation({
+        id: taskId,
+        completed_by: currentUserId,
+        completed_at: new Date().toISOString()
+      })
+        .then(result => {
+          console.log("result", result);
+          if (result.error) {
+            throw result.error;
+          }
+          // setStatus("success");
+          history.replace(`/tasks`);
+        })
+        .catch(e => {
+          console.log("e", e);
+          //setStatus("error");
+          alert("Impossible de fermer cette demande :/" + e.message);
+        });
     }
   };
 
