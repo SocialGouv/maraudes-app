@@ -21,72 +21,90 @@ import {
 import CheckItem from "../components/CheckItem";
 import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
+import GraphQLFetch from "../components/GraphQLFetch";
+import getPerson from "../queries/getPerson";
 
 const frenchDate = date =>
-  format(new Date(date), "d MMMM à HH'h'mm", { locale: fr });
+  (date && format(new Date(date), "d MMMM à HH'h'mm", { locale: fr })) || "";
 
 const Task = ({ match }) => {
-  const id = match.params.id;
+  const personId = match.params.id;
   const history = useHistory();
-  const person = [].find(t => t.id === id);
+  //const person = [].find(t => t.id === id);
   const header = (
     <IonHeader>
       <IonToolbar color="primary">
         <IonButtons slot="start">
           <IonBackButton defaultHref="/persons" text="Retour" />
         </IonButtons>
-        <IonTitle>{(person && person.title) || "Demande non trouvée"}</IonTitle>
+        <IonTitle>XXXX</IonTitle>
       </IonToolbar>
     </IonHeader>
   );
 
-  if (!person) {
-    return <IonPage>Not found</IonPage>;
+  // if (!person) {
+  //   return <IonPage>Not found</IonPage>;
+  // }
+
+  //const tasks = [].filter(t => t.person === person.title);
+  /*
+  {
+    header;
   }
 
-  const tasks = [].filter(t => t.person === person.title);
-
+*/
   return (
     <IonPage>
-      {header}
       <IonContent>
-        <IonCard class="card">
-          <IonCardHeader>
-            <IonCardTitle>{person.title}</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent style={{ paddingTop: 0 }}>
-            infos personne
-          </IonCardContent>
-        </IonCard>
-        {tasks.length !== 0 && (
-          <React.Fragment>
-            <h3 style={{ paddingLeft: 20 }}>Demandes en cours</h3>
-            {tasks.map(task => (
-              <CheckItem
-                key={task.id}
-                rightText={frenchDate(task.creationDate)}
-                title={task.title}
-                text={task.description}
-                onClick={() => history.push(`/tasks/${task.id}`)}
-                details
-                button
-                checkboxProps={{
-                  checked: !!task.completedDate,
-                  children: <IonCheckbox />
-                }}
-              />
-            ))}
-          </React.Fragment>
-        )}
-        <React.Fragment>
-          <h3 style={{ paddingLeft: 20 }}>Notes</h3>
-          <Comments person_id={person.id} />
-        </React.Fragment>
+        <GraphQLFetch
+          query={getPerson}
+          variables={{ id: personId }}
+          render={({ result }) => {
+            const person = result.data.person;
+            console.log("person", person);
+            return (
+              <div>
+                <IonCard class="card">
+                  <IonCardHeader>
+                    <IonCardTitle>{person.title}</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent style={{ paddingTop: 0 }}>
+                    infos personne
+                  </IonCardContent>
+                </IonCard>
+                <h3 style={{ paddingLeft: 20 }}>Demandes en cours</h3>
+                {(person.todos && person.todos.length !== 0 && (
+                  <div>
+                    {person.todos.map(task => (
+                      <CheckItem
+                        key={task.id}
+                        rightText={frenchDate(task.created_at)}
+                        title={task.title}
+                        text={task.text}
+                        onClick={() => history.push(`/tasks/${task.id}`)}
+                        details
+                        button
+                        checkboxProps={{
+                          checked: !!task.completed_at,
+                          children: <IonCheckbox />
+                        }}
+                      />
+                    ))}
+                  </div>
+                )) || (
+                  <div style={{ paddingLeft: 40 }}>Aucune demande en cours</div>
+                )}
+                <h3 style={{ paddingLeft: 20 }}>Notes</h3>
+                <Comments person_id={person.id} />
+                <ButtonFooter
+                  text="nouvelle demande"
+                  onClick={() => history.push(`/tasks/create/${person.id}`)}
+                />
+              </div>
+            );
+          }}
+        />
       </IonContent>
-      <ButtonFooter
-        text="nouvelle demande"
-        onClick={() => history.push(`/tasks/create/${person.id}`)}
-      />
     </IonPage>
   );
 };

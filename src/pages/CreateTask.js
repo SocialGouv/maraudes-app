@@ -20,7 +20,7 @@ import {
 
 import ButtonFooter from "../components/ButtonFooter";
 import GraphQLFetch from "../components/GraphQLFetch";
-import personInfo from "../queries/personInfo";
+import getPerson from "../queries/getPerson";
 import createTask from "../mutations/createTask";
 
 const InitTask = ({ match }) => {
@@ -51,14 +51,13 @@ const InitTask = ({ match }) => {
       text: values.text,
       expiration_at: utcDate.toISOString()
     };
-    console.log("submitValues", submitValues);
     executeMutation(submitValues)
       .then(result => {
         if (result.error) {
           alert("Impossible d'envoyer la demande :/");
           throw result.error;
         }
-        setStatus("error");
+        setStatus("success");
         history.replace(`/tasks/${uuid}`);
       })
       .catch(() => {
@@ -78,7 +77,7 @@ const InitTask = ({ match }) => {
       </IonHeader>
       <IonContent>
         <GraphQLFetch
-          query={personInfo}
+          query={getPerson}
           variables={{ id: personId }}
           render={({ result }) => {
             const person = result.data && result.data.person;

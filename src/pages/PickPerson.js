@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { personAdd } from "ionicons/icons";
+import { useMutation } from "urql";
+import uuidv4 from "uuid/v4";
+
 import {
   IonContent,
   IonHeader,
@@ -13,15 +16,41 @@ import {
 
 import ButtonFooter from "../components/ButtonFooter";
 import PersonPicker from "../components/PersonPicker";
+import createPerson from "../mutations/createPerson";
 
-const Task = () => {
+const Task = props => {
   const history = useHistory();
+
+  const [status, setStatus] = useState("idle");
+  const [, executeMutation] = useMutation(createPerson);
+
   const addPerson = () => {
     const name = prompt("Nom de la personne ?", "");
     if (name) {
-      alert("Create person " + name);
+      const uuid = uuidv4();
+      executeMutation({
+        id: uuid,
+        title: name
+      })
+        .then(result => {
+          if (result.error) {
+            alert("Impossible d'envoyer la demande :/");
+            throw result.error;
+          }
+          setStatus("success");
+          if (props.destination === "createTask") {
+            history.replace(`/tasks/create/${uuid}`);
+          } else if (props.destination === "createPerson") {
+            history.replace(`/persons/${uuid}`);
+          }
+        })
+        .catch(e => {
+          console.log("e", e);
+          setStatus("error");
+        });
+
+      // alert("Create person " + name);
       // todo : create person and
-      history.replace(`/tasks/create/1`);
     }
   };
   return (
@@ -31,13 +60,18 @@ const Task = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/tasks" text="Retour" />
           </IonButtons>
-          <IonTitle>Nouvelle demande</IonTitle>
+          <IonTitle>{props.title}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <h1 style={{ paddingLeft: 10 }}>Personne bénéficiaire :</h1>
         <PersonPicker
-          onClick={person => history.replace(`/tasks/create/${person.id}`)}
+          onClick={person => {
+            if (props.destination === "createTask") {
+              history.replace(`/tasks/create/${person.id}`);
+            } else if (props.destination === "createPerson") {
+              history.replace(`/persons/${person.id}`);
+            }
+          }}
         />
       </IonContent>
       <ButtonFooter

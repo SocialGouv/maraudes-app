@@ -16,6 +16,7 @@ import {
 import AvatarItem from "../components/AvatarItem";
 import GraphQLFetch from "../components/GraphQLFetch";
 import getTaskMessages from "../queries/getTaskMessages";
+import getPersonMessages from "../queries/getPersonMessages";
 import postMessage from "../mutations/postMessage";
 
 const frenchDate = date =>
@@ -55,7 +56,7 @@ const AddComment = ({ onAddComment, variables = {} }) => {
   };
 
   return (
-    <IonItem style={{ marginTop: 20 }} lines="none">
+    <IonItem style={{ paddingTop: 20 }} lines="none">
       <IonAvatar
         slot="start"
         style={{
@@ -75,6 +76,7 @@ const AddComment = ({ onAddComment, variables = {} }) => {
       <IonButton
         disabled={status === "submitting"}
         color="primary"
+        style={{ height: 44, verticalAlign: "middle" }}
         onClick={onSubmit}
       >
         Envoyer
@@ -89,7 +91,7 @@ AddComment.propTypes = {
 };
 
 const Comments = variables => {
-  const query = variables.todo_id ? getTaskMessages : "";
+  const query = variables.todo_id ? getTaskMessages : getPersonMessages;
   return (
     <GraphQLFetch
       query={query}
@@ -98,8 +100,8 @@ const Comments = variables => {
         const comments =
           result &&
           result.data &&
-          result.data.todo &&
-          result.data.todo.messages;
+          result.data.node &&
+          result.data.node.messages;
         return (
           <React.Fragment>
             {comments &&

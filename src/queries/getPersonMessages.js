@@ -1,7 +1,7 @@
 export default `
 
-query ($todo_id: uuid!) {
-  node: todos_by_pk(id: $todo_id) {
+query ($person_id: uuid!) {
+  node: persons_by_pk(id: $person_id) {
     messages(order_by: {created_at: asc}) {
       id,
       text,

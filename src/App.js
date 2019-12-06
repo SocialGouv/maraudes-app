@@ -17,7 +17,6 @@ import Tasks from "./pages/Tasks";
 import Task from "./pages/Task";
 import CreateTask from "./pages/CreateTask";
 import PickPerson from "./pages/PickPerson";
-import Persons from "./pages/Persons";
 import Person from "./pages/Person";
 
 /* Core CSS required for Ionic components to work properly */
@@ -64,10 +63,30 @@ const App = () => (
               component={CreateTask}
               exact={true}
             />
-            <Route path="/tasks/create" component={PickPerson} exact={true} />
+            <Route
+              path="/tasks/create"
+              component={props => (
+                <PickPerson
+                  title="Choisir le bénéficiaire"
+                  destination="createTask"
+                  {...props}
+                />
+              )}
+              exact={true}
+            />
             <Route path="/tasks/:id" component={Task} exact={true} />
             <Route path="/persons/:id" component={Person} exact={true} />
-            <Route path="/persons" component={Persons} exact={true} />
+            <Route
+              path="/persons"
+              component={props => (
+                <PickPerson
+                  title="Personnes"
+                  destination="createPerson"
+                  {...props}
+                />
+              )}
+              exact={true}
+            />
             <Route
               path="/"
               exact={true}

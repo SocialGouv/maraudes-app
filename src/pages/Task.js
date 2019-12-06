@@ -26,6 +26,7 @@ import AvatarIcon from "../components/AvatarIcon";
 import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
 import GraphQLFetch from "../components/GraphQLFetch";
+import getTask from "../queries/getTask";
 
 const frenchDate = date =>
   (date && format(new Date(date), "d MMMM à HH'h'mm", { locale: fr })) || "";
@@ -44,28 +45,6 @@ const TaskChip = ({
     <IonLabel>{text}</IonLabel>
   </IonChip>
 );
-
-const queryTask = `query Task($id: uuid!) {
-  todos_by_pk(id: $id) {
-    id
-    title
-    text
-    person{
-      id,
-      title
-    }
-    created_user{
-      id,
-      username
-    }
-    created_at
-    completed_at
-    completed_user{
-      username
-    }
-    expiration_at
-  }
-}`;
 
 const Task = ({ match }) => {
   const taskId = match.params.id;
@@ -93,10 +72,10 @@ const Task = ({ match }) => {
   return (
     <IonPage>
       <GraphQLFetch
-        query={queryTask}
+        query={getTask}
         variables={{ id: taskId }}
         render={({ result }) => {
-          const task = result.data.todos_by_pk;
+          const task = result.data.todo;
           return (
             <React.Fragment>
               {header}
