@@ -2,6 +2,7 @@ import React from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { fr } from "date-fns/locale";
 import { useHistory } from "react-router";
+import { Redirect } from "react-router-dom";
 import { useMutation } from "urql";
 
 import {
@@ -36,8 +37,11 @@ const sortTodos = (a, b) => {
 
 export const Tasks = () => {
   const history = useHistory();
+
   const currentUserId = getUserId();
+
   const [, executeMutation] = useMutation(completeTask);
+
   const onCheckBoxClick = (task, cb) => {
     executeMutation({
       id: task.id,
@@ -58,6 +62,10 @@ export const Tasks = () => {
         alert("Impossible de fermer cette demande :/" + e.message);
       });
   };
+
+  if (!currentUserId) {
+    return <Redirect to="/login" />;
+  }
   return (
     <IonPage>
       <IonHeader>

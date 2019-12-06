@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router";
 import { useMutation } from "urql";
+import { Redirect } from "react-router-dom";
 import uuidv4 from "uuid/v4";
 import { send } from "ionicons/icons";
 import {
@@ -22,11 +23,14 @@ import ButtonFooter from "../components/ButtonFooter";
 import GraphQLFetch from "../components/GraphQLFetch";
 import getPerson from "../queries/getPerson";
 import createTask from "../mutations/createTask";
+import getUserId from "../getUserId";
 
 const InitTask = ({ match }) => {
   const personId = match.params.id;
 
-  // in ont hour
+  const currentUserId = getUserId();
+
+  // in one hour
   const expiration = new Date(new Date().getTime() + 60 * 60 * 1000);
 
   const [values, setValues] = useState({
@@ -68,7 +72,9 @@ const InitTask = ({ match }) => {
         setStatus("error");
       });
   };
-
+  if (!currentUserId) {
+    return <Redirect to="/login" />;
+  }
   return (
     <IonPage>
       <IonHeader>

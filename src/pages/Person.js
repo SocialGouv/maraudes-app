@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
+import { Redirect } from "react-router-dom";
 import format from "date-fns/format";
 import { fr } from "date-fns/locale";
 import { useMutation } from "urql";
@@ -54,7 +55,9 @@ const Task = ({ match }) => {
         alert("Impossible de fermer cette demande :/" + e.message);
       });
   };
-
+  if (!currentUserId) {
+    return <Redirect to="/login" />;
+  }
   return (
     <IonPage>
       <IonHeader>

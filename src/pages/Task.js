@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router";
+import { Redirect } from "react-router-dom";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import format from "date-fns/format";
 import { fr } from "date-fns/locale";
@@ -80,6 +81,10 @@ const Task = ({ match }) => {
         });
     }
   };
+
+  if (!currentUserId) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <IonPage>

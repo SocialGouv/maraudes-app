@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import { Redirect } from "react-router-dom";
 import { personAdd } from "ionicons/icons";
 import { useMutation } from "urql";
 import uuidv4 from "uuid/v4";
@@ -17,12 +18,14 @@ import {
 import ButtonFooter from "../components/ButtonFooter";
 import PersonPicker from "../components/PersonPicker";
 import createPerson from "../mutations/createPerson";
+import getUserId from "../getUserId";
 
 const Task = props => {
   const history = useHistory();
 
   const [status, setStatus] = useState("idle");
   const [, executeMutation] = useMutation(createPerson);
+  const currentUserId = getUserId();
 
   const addPerson = () => {
     const name = prompt("Nom de la personne ?", "");
@@ -50,6 +53,11 @@ const Task = props => {
         });
     }
   };
+
+  if (!currentUserId) {
+    return <Redirect to="/login" />;
+  }
+
   return (
     <IonPage>
       <IonHeader>

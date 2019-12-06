@@ -15,6 +15,7 @@
     "react-router-dom": "^5.1.0",
     "react-scripts": "3.2.0",
     "urql": "^1.6.3",
+    "use-persisted-state": "^0.3.0",
     "uuid": "^3.3.3"
   },
   "scripts": {

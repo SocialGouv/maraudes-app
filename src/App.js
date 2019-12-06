@@ -1,8 +1,8 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { IonReactRouter } from "@ionic/react-router";
 import { contact, checkmarkCircleOutline } from "ionicons/icons";
-// ...
+
 import {
   Provider,
   createClient,
@@ -24,6 +24,7 @@ import {
 } from "@ionic/react";
 
 import Tasks from "./pages/Tasks";
+import Login from "./pages/Login";
 import Task from "./pages/Task";
 import CreateTask from "./pages/CreateTask";
 import PickPerson from "./pages/PickPerson";
@@ -66,55 +67,60 @@ const App = () => (
   <IonApp>
     <Provider value={client}>
       <IonReactRouter>
-        <IonTabs>
-          <IonRouterOutlet>
-            <Route path="/tasks" component={Tasks} exact={true} />
-            <Route
-              path="/tasks/create/:id"
-              component={CreateTask}
-              exact={true}
-            />
-            <Route
-              path="/tasks/create"
-              component={props => (
-                <PickPerson
-                  title="Choisir le bénéficiaire"
-                  destination="createTask"
-                  {...props}
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route>
+            <IonTabs>
+              <IonRouterOutlet>
+                <Route path="/tasks" component={Tasks} exact={true} />
+                <Route
+                  path="/tasks/create/:id"
+                  component={CreateTask}
+                  exact={true}
                 />
-              )}
-              exact={true}
-            />
-            <Route path="/tasks/:id" component={Task} exact={true} />
-            <Route path="/persons/:id" component={Person} exact={true} />
-            <Route
-              path="/persons"
-              component={props => (
-                <PickPerson
-                  title="Personnes"
-                  destination="createPerson"
-                  {...props}
+                <Route
+                  path="/tasks/create"
+                  component={props => (
+                    <PickPerson
+                      title="Choisir le bénéficiaire"
+                      destination="createTask"
+                      {...props}
+                    />
+                  )}
+                  exact={true}
                 />
-              )}
-              exact={true}
-            />
-            <Route
-              path="/"
-              exact={true}
-              render={() => <Redirect to="/tasks" />}
-            />
-          </IonRouterOutlet>
-          <IonTabBar slot="bottom">
-            <IonTabButton tab="tasks" href="/tasks">
-              <IonIcon icon={checkmarkCircleOutline} />
-              <IonLabel>Demandes</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="persons" href="/persons">
-              <IonIcon icon={contact} />
-              <IonLabel>Personnes</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-        </IonTabs>
+                <Route path="/tasks/:id" component={Task} exact={true} />
+                <Route path="/persons/:id" component={Person} exact={true} />
+                <Route
+                  path="/persons"
+                  component={props => (
+                    <PickPerson
+                      title="Personnes"
+                      destination="createPerson"
+                      {...props}
+                    />
+                  )}
+                  exact={true}
+                />
+                <Route
+                  path="/"
+                  exact={true}
+                  render={() => <Redirect to="/tasks" />}
+                />
+              </IonRouterOutlet>
+              <IonTabBar slot="bottom">
+                <IonTabButton tab="tasks" href="/tasks">
+                  <IonIcon icon={checkmarkCircleOutline} />
+                  <IonLabel>Demandes</IonLabel>
+                </IonTabButton>
+                <IonTabButton tab="persons" href="/persons">
+                  <IonIcon icon={contact} />
+                  <IonLabel>Personnes</IonLabel>
+                </IonTabButton>
+              </IonTabBar>
+            </IonTabs>
+          </Route>
+        </Switch>
       </IonReactRouter>
     </Provider>
     ;
