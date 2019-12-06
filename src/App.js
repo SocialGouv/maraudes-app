@@ -16,7 +16,7 @@ import {
 import Tasks from "./pages/Tasks";
 import Task from "./pages/Task";
 import CreateTask from "./pages/CreateTask";
-import InitTask from "./pages/InitTask";
+import PickPerson from "./pages/PickPerson";
 import Persons from "./pages/Persons";
 import Person from "./pages/Person";
 
@@ -59,8 +59,12 @@ const App = () => (
         <IonTabs>
           <IonRouterOutlet>
             <Route path="/tasks" component={Tasks} exact={true} />
-            <Route path="/tasks/create/:id" component={InitTask} exact={true} />
-            <Route path="/tasks/create" component={CreateTask} exact={true} />
+            <Route
+              path="/tasks/create/:id"
+              component={CreateTask}
+              exact={true}
+            />
+            <Route path="/tasks/create" component={PickPerson} exact={true} />
             <Route path="/tasks/:id" component={Task} exact={true} />
             <Route path="/persons/:id" component={Person} exact={true} />
             <Route path="/persons" component={Persons} exact={true} />

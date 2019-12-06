@@ -45,15 +45,17 @@ const TaskChip = ({
   </IonChip>
 );
 
-const queryTask = `{
-  todos_by_pk(id: "7271fcea-d7e0-44cf-b169-5a3b13f6d111") {
+const queryTask = `query Task($id: uuid!) {
+  todos_by_pk(id: $id) {
     id
     title
     text
     person{
+      id,
       title
     }
     created_user{
+      id,
       username
     }
     created_at
@@ -66,7 +68,7 @@ const queryTask = `{
 }`;
 
 const Task = ({ match }) => {
-  const id = match.params.id;
+  const taskId = match.params.id;
   //  const task = todo.find(t => t.id === id);
   const history = useHistory();
   const header = (
@@ -92,6 +94,7 @@ const Task = ({ match }) => {
     <IonPage>
       <GraphQLFetch
         query={queryTask}
+        variables={{ id: taskId }}
         render={({ result }) => {
           const task = result.data.todos_by_pk;
           return (
@@ -115,7 +118,7 @@ const Task = ({ match }) => {
                       icon={person}
                       text={task.person.title}
                       avatarStyle={{ background: "var(--ion-color-primary)" }}
-                      onClick={() => history.push(`/persons/1`)}
+                      onClick={() => history.push(`/persons/${task.person.id}`)}
                     />
                     <TaskChip
                       icon={stopwatch}

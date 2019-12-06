@@ -10,7 +10,7 @@ const GraphQLFetch = ({ query, variables = {}, render }) => {
     variables
   });
 
-  console.log("GraphQLFetch", query, variables, result);
+  //console.log("GraphQLFetch", query, variables, result);
 
   if (result.error) return <div>Erreur :/ {result.error.message}</div>;
   const finished = !result.fetching && !result.error;

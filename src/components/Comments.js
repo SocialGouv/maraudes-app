@@ -98,9 +98,8 @@ const Comments = variables => {
         const comments =
           result &&
           result.data &&
-          result.data.todos_by_pk &&
-          result.data.todos_by_pk.messages;
-
+          result.data.todo &&
+          result.data.todo.messages;
         return (
           <React.Fragment>
             {comments &&
