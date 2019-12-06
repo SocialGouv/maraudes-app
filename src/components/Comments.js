@@ -96,12 +96,8 @@ const Comments = variables => {
     <GraphQLFetch
       query={query}
       variables={variables}
-      render={({ result, refetch }) => {
-        const comments =
-          result &&
-          result.data &&
-          result.data.node &&
-          result.data.node.messages;
+      render={({ data, refetch }) => {
+        const comments = data && data.node && data.node.messages;
         return (
           <React.Fragment>
             {comments &&

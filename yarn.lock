@@ -1412,6 +1412,13 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
+"@urql/devtools@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@urql/devtools/-/devtools-0.1.0.tgz#68c8edbbea24af7bfd5c1ad280a3d5dc61579276"
+  integrity sha512-zqE+UBtjqrs8VM1kBxqr3xRdBfejifIIctzXDzJi7JEX35oLMtTBV44FBgdcXLTJjZtUHyL4zT1xQ99IsSuYDg==
+  dependencies:
+    wonka "^3.2.1"
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"

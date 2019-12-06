@@ -9,8 +9,8 @@ import personsList from "../queries/personsList";
 const PeoplePicker = ({ onClick }) => (
   <GraphQLFetch
     query={personsList}
-    render={({ result }) => {
-      const persons = result.data.persons;
+    render={({ data }) => {
+      const persons = data.persons;
       return (
         <React.Fragment>
           {persons.map(entry => (

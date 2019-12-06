@@ -48,15 +48,12 @@ const Task = props => {
           console.log("e", e);
           setStatus("error");
         });
-
-      // alert("Create person " + name);
-      // todo : create person and
     }
   };
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonButtons slot="start">
             <IonBackButton defaultHref="/tasks" text="Retour" />
           </IonButtons>

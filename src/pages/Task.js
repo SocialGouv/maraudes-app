@@ -56,17 +56,6 @@ const Task = ({ match }) => {
   const currentUserId = getUserId();
   const [, executeMutation] = useMutation(completeTask);
 
-  const header = (
-    <IonHeader>
-      <IonToolbar color="primary">
-        <IonButtons slot="start">
-          <IonBackButton defaultHref="/tasks" text="Retour" />
-        </IonButtons>
-        {/*<IonTitle>{(task && task.title) || "Demande non trouvée"}</IonTitle>*/}
-      </IonToolbar>
-    </IonHeader>
-  );
-
   const closeTask = () => {
     const yes = window.confirm("Voulez-vous vraiment fermer cette demande ?");
     if (yes) {
@@ -82,7 +71,7 @@ const Task = ({ match }) => {
             throw result.error;
           }
           // setStatus("success");
-          history.replace(`/tasks`);
+          history.push(`/tasks?r=${Math.random()}`);
         })
         .catch(e => {
           console.log("e", e);
@@ -97,11 +86,17 @@ const Task = ({ match }) => {
       <GraphQLFetch
         query={getTask}
         variables={{ id: taskId }}
-        render={({ result }) => {
-          const task = result.data.todo;
+        render={({ data }) => {
+          const task = data.todo;
           return (
             <React.Fragment>
-              {header}
+              <IonHeader>
+                <IonToolbar color="primary">
+                  <IonButtons slot="start">
+                    <IonBackButton defaultHref="/tasks" text="Retour" />
+                  </IonButtons>
+                </IonToolbar>
+              </IonHeader>
               <IonContent>
                 <IonCard class="card">
                   <IonCardHeader>

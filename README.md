@@ -6,3 +6,10 @@
 yarn
 yarn start
 ```
+
+## Todo
+
+- [ ] Edit task
+- [ ] Edit person
+- [ ] Invite collaborator
+- [ ] Login

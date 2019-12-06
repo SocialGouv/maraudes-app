@@ -34,28 +34,29 @@ const sortTodos = (a, b) => {
   return 0;
 };
 
-export const Tasks = ({}) => {
+export const Tasks = () => {
   const history = useHistory();
   const currentUserId = getUserId();
   const [, executeMutation] = useMutation(completeTask);
-  const onCheckBoxClick = task => {
-    setTimeout(() => {
-      executeMutation({
-        id: task.id,
-        completed_by: currentUserId,
-        completed_at: new Date().toISOString()
+  const onCheckBoxClick = (task, cb) => {
+    executeMutation({
+      id: task.id,
+      completed_by: currentUserId,
+      completed_at: new Date().toISOString()
+    })
+      .then(result => {
+        console.log("result", result);
+        if (result.error) {
+          throw result.error;
+        }
+        if (cb) {
+          cb();
+        }
       })
-        .then(result => {
-          console.log("result", result);
-          if (result.error) {
-            throw result.error;
-          }
-        })
-        .catch(e => {
-          console.log("e", e);
-          alert("Impossible de fermer cette demande :/" + e.message);
-        });
-    });
+      .catch(e => {
+        console.log("e", e);
+        alert("Impossible de fermer cette demande :/" + e.message);
+      });
   };
   return (
     <IonPage>
@@ -67,10 +68,10 @@ export const Tasks = ({}) => {
       <IonContent>
         <GraphQLFetch
           query={getTasks}
-          render={({ result }) =>
-            (result.data &&
-              result.data.todos.length &&
-              result.data.todos.sort(sortTodos).map(task => (
+          render={({ data, refetch }) =>
+            (data &&
+              data.todos.length &&
+              data.todos.sort(sortTodos).map(task => (
                 <CheckItem
                   key={task.id}
                   rightText={formatDueDate(task.expiration_at)}
@@ -80,7 +81,15 @@ export const Tasks = ({}) => {
                   button
                   onClick={() => history.push(`/tasks/${task.id}`)}
                   checkboxProps={{
-                    onClick: () => onCheckBoxClick(task),
+                    onClick: e => {
+                      e.preventDefault();
+                      // cancel action when already checked
+                      if (!task.completed_at) {
+                        onCheckBoxClick(task, refetch);
+                      } else {
+                        e.target.checked = !e.target.checked;
+                      }
+                    },
                     checked: !!task.completed_at,
                     children: <IonCheckbox />
                   }}

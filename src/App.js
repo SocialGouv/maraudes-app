@@ -2,7 +2,17 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import { IonReactRouter } from "@ionic/react-router";
 import { contact, checkmarkCircleOutline } from "ionicons/icons";
-import { Provider, createClient } from "urql";
+// ...
+import {
+  Provider,
+  createClient,
+  cacheExchange,
+  dedupExchange,
+  fetchExchange
+} from "urql";
+
+import { devtoolsExchange } from "@urql/devtools";
+
 import {
   IonApp,
   IonIcon,
@@ -43,6 +53,7 @@ import { getToken } from "./token";
 
 const client = createClient({
   url: "http://127.0.0.1:8088/v1/graphql",
+  exchanges: [dedupExchange, devtoolsExchange, cacheExchange, fetchExchange],
   fetchOptions: () => {
     const token = getToken();
     return {

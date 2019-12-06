@@ -39,6 +39,10 @@ const InitTask = ({ match }) => {
   const history = useHistory();
 
   const onSubmit = () => {
+    if (!values.title || !values.text) {
+      alert("Vous devez remplir tous les champs");
+      return;
+    }
     const uuid = uuidv4();
     setStatus("submitting");
     const utcDate = new Date(values.date);
@@ -79,8 +83,8 @@ const InitTask = ({ match }) => {
         <GraphQLFetch
           query={getPerson}
           variables={{ id: personId }}
-          render={({ result }) => {
-            const person = result.data && result.data.person;
+          render={({ data }) => {
+            const person = data && data.person;
             return (
               <React.Fragment>
                 <h2 style={{ paddingLeft: 10 }}>Demande pour {person.title}</h2>
@@ -137,6 +141,7 @@ const InitTask = ({ match }) => {
         />
       </IonContent>
       <ButtonFooter
+        disabled={status === "submitting"}
         text="enregistrer la demande"
         icon={send}
         onClick={onSubmit}

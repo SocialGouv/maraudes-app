@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router";
 import format from "date-fns/format";
 import { fr } from "date-fns/locale";
-
+import { useMutation } from "urql";
 import {
   IonCheckbox,
   IonContent,
@@ -23,6 +23,8 @@ import ButtonFooter from "../components/ButtonFooter";
 import Comments from "../components/Comments";
 import GraphQLFetch from "../components/GraphQLFetch";
 import getPerson from "../queries/getPerson";
+import completeTask from "../mutations/completeTask";
+import getUserId from "../getUserId";
 
 const frenchDate = date =>
   (date && format(new Date(date), "d MMMM à HH'h'mm", { locale: fr })) || "";
@@ -30,37 +32,44 @@ const frenchDate = date =>
 const Task = ({ match }) => {
   const personId = match.params.id;
   const history = useHistory();
-  //const person = [].find(t => t.id === id);
-  const header = (
-    <IonHeader>
-      <IonToolbar color="primary">
-        <IonButtons slot="start">
-          <IonBackButton defaultHref="/persons" text="Retour" />
-        </IonButtons>
-        <IonTitle>XXXX</IonTitle>
-      </IonToolbar>
-    </IonHeader>
-  );
+  const currentUserId = getUserId();
+  const [, executeMutation] = useMutation(completeTask);
+  const onTaskCheckBoxClick = (task, cb) => {
+    executeMutation({
+      id: task.id,
+      completed_by: currentUserId,
+      completed_at: new Date().toISOString()
+    })
+      .then(result => {
+        console.log("result", result);
+        if (result.error) {
+          throw result.error;
+        }
+        if (cb) {
+          cb();
+        }
+      })
+      .catch(e => {
+        console.log("e", e);
+        alert("Impossible de fermer cette demande :/" + e.message);
+      });
+  };
 
-  // if (!person) {
-  //   return <IonPage>Not found</IonPage>;
-  // }
-
-  //const tasks = [].filter(t => t.person === person.title);
-  /*
-  {
-    header;
-  }
-
-*/
   return (
     <IonPage>
+      <IonHeader>
+        <IonToolbar color="primary">
+          <IonButtons slot="start">
+            <IonBackButton defaultHref="/persons" text="Retour" />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
       <IonContent>
         <GraphQLFetch
           query={getPerson}
           variables={{ id: personId }}
-          render={({ result }) => {
-            const person = result.data.person;
+          render={({ data, refetch }) => {
+            const person = data.person;
             console.log("person", person);
             return (
               <div>
@@ -86,7 +95,17 @@ const Task = ({ match }) => {
                         button
                         checkboxProps={{
                           checked: !!task.completed_at,
-                          children: <IonCheckbox />
+                          children: <IonCheckbox />,
+                          // cant change state from this page.
+                          onClick: e => {
+                            e.preventDefault();
+                            // cancel action when already checked
+                            if (!task.completed_at) {
+                              onTaskCheckBoxClick(task, refetch);
+                            } else {
+                              e.target.checked = !e.target.checked;
+                            }
+                          }
                         }}
                       />
                     ))}
