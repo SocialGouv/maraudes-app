@@ -1,24 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "urql";
-
+import { IonSpinner } from "@ionic/react";
 // render props to fetch data with GraphQL render({result, refetch});
 
 const GraphQLFetch = ({ query, variables = {}, render }) => {
-  console.log("GraphQLFetch");
   return (
-    <Query query={query} variables={variables} requestPolicy="network-only">
+    <Query
+      query={query}
+      variables={variables}
+      requestPolicy="cache-and-network"
+    >
       {({ fetching, data, error, executeQuery, extensions }) => {
         if (fetching) {
-          return "Loading...";
+          return <IonSpinner />;
         } else if (error) {
-          return "Oh no!";
+          return "Error";
         }
-        console.log("data", data);
-        //return <div>io</div>;
         return render({
           data,
-          refetch: () => executeQuery({ requestPolicy: "network-only" })
+          refetch: () => executeQuery({ requestPolicy: "cache-and-network" })
         });
       }}
     </Query>

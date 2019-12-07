@@ -52,8 +52,11 @@ import "./theme.css";
 
 import { getToken } from "./token";
 
+const GRAPHQL_API =
+  process.env.REACT_APP_GRAPHQL_API || "http://127.0.0.1:8088/v1/graphql";
+
 const client = createClient({
-  url: "http://127.0.0.1:8088/v1/graphql",
+  url: GRAPHQL_API,
   exchanges: [dedupExchange, devtoolsExchange, cacheExchange, fetchExchange],
   fetchOptions: () => {
     const token = getToken();

@@ -17,8 +17,10 @@ import {
 import ButtonFooter from "../components/ButtonFooter";
 import { setToken } from "../token";
 
+const AUTH_API = process.env.REACT_APP_AUTH_API || "http://127.0.0.1:1337";
+
 const login = ({ username, password }) =>
-  fetch("http://127.0.0.1:1337/login", {
+  fetch(`${AUTH_API}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -68,13 +70,25 @@ const LoginBox = () => {
     <div style={{ paddingTop: 100, width: 300, margin: "0 auto" }}>
       <div>
         <IonItem>
-          <IonLabel>Email</IonLabel>
-          <IonInput ref={node => (loginInput = node)}></IonInput>
+          <IonLabel>Utilisateur</IonLabel>
+          <IonInput
+            onKeyUp={e => {
+              if (e.keyCode === 13) {
+                onSubmit();
+              }
+            }}
+            ref={node => (loginInput = node)}
+          ></IonInput>
         </IonItem>
         <IonItem>
           <IonLabel>Mot de passe</IonLabel>
           <IonInput
             ref={node => (passwordInput = node)}
+            onKeyUp={e => {
+              if (e.keyCode === 13) {
+                onSubmit();
+              }
+            }}
             type="password"
           ></IonInput>
         </IonItem>

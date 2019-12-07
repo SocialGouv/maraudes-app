@@ -78,7 +78,7 @@ const InitTask = ({ match }) => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonButtons slot="start">
             <IonBackButton defaultHref="/tasks" text="Retour" />
           </IonButtons>

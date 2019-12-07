@@ -62,9 +62,6 @@ const Task = props => {
     <IonPage>
       <IonHeader>
         <IonToolbar color="primary">
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="/tasks" text="Retour" />
-          </IonButtons>
           <IonTitle>{props.title}</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -72,9 +69,9 @@ const Task = props => {
         <PersonPicker
           onClick={person => {
             if (props.destination === "createTask") {
-              history.replace(`/tasks/create/${person.id}`);
+              history.push(`/tasks/create/${person.id}`);
             } else if (props.destination === "createPerson") {
-              history.replace(`/persons/${person.id}`);
+              history.push(`/persons/${person.id}`);
             }
           }}
         />
