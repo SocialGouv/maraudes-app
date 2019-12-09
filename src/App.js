@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
+import { useHistory } from "react-router";
 import { IonReactRouter } from "@ionic/react-router";
 import { contact, checkmarkCircleOutline } from "ionicons/icons";
 
@@ -66,68 +67,82 @@ const client = createClient({
   }
 });
 
-const App = () => (
-  <IonApp>
-    <Provider value={client}>
-      <IonReactRouter>
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route>
-            <IonTabs>
-              <IonRouterOutlet>
-                <Route path="/tasks" component={Tasks} exact={true} />
-                <Route
-                  path="/tasks/create/:id"
-                  component={CreateTask}
-                  exact={true}
-                />
-                <Route
-                  path="/tasks/create"
-                  component={props => (
-                    <PickPerson
-                      title="Choisir le bénéficiaire"
-                      destination="createTask"
-                      {...props}
-                    />
-                  )}
-                  exact={true}
-                />
-                <Route path="/tasks/:id" component={Task} exact={true} />
-                <Route path="/persons/:id" component={Person} exact={true} />
-                <Route
-                  path="/persons"
-                  component={props => (
-                    <PickPerson
-                      title="Personnes"
-                      destination="createPerson"
-                      {...props}
-                    />
-                  )}
-                  exact={true}
-                />
-                <Route
-                  path="/"
-                  exact={true}
-                  render={() => <Redirect to="/tasks" />}
-                />
-              </IonRouterOutlet>
-              <IonTabBar slot="bottom">
-                <IonTabButton tab="tasks" href="/tasks">
-                  <IonIcon icon={checkmarkCircleOutline} />
-                  <IonLabel>Demandes</IonLabel>
-                </IonTabButton>
-                <IonTabButton tab="persons" href="/persons">
-                  <IonIcon icon={contact} />
-                  <IonLabel>Personnes</IonLabel>
-                </IonTabButton>
-              </IonTabBar>
-            </IonTabs>
-          </Route>
-        </Switch>
-      </IonReactRouter>
-    </Provider>
-    ;
-  </IonApp>
-);
+const Tabs = () => {
+  const history = useHistory();
+  return (
+    <IonTabs>
+      <IonRouterOutlet>
+        <Route path="/tasks" component={Tasks} exact={true} />
+        <Route path="/tasks/create/:id" component={CreateTask} exact={true} />
+        <Route
+          path="/tasks/create"
+          component={props => (
+            <PickPerson
+              title="Choisir le bénéficiaire"
+              destination="createTask"
+              {...props}
+            />
+          )}
+          exact={true}
+        />
+        <Route path="/tasks/:id" component={Task} exact={true} />
+        <Route path="/persons/:id" component={Person} exact={true} />
+        <Route
+          path="/persons"
+          component={props => (
+            <PickPerson
+              title="Personnes"
+              destination="createPerson"
+              {...props}
+            />
+          )}
+          exact={true}
+        />
+        <Route path="/" exact={true} render={() => <Redirect to="/tasks" />} />
+      </IonRouterOutlet>
+      <IonTabBar slot="bottom">
+        <IonTabButton
+          tab="tasks"
+          href="/tasks"
+          onClick={e => {
+            //   e.preventDefault();
+            history.replace("/tasks");
+          }}
+        >
+          <IonIcon icon={checkmarkCircleOutline} />
+          <IonLabel>Demandes</IonLabel>
+        </IonTabButton>
+        <IonTabButton
+          tab="persons"
+          href="/persons"
+          onClick={e => {
+            ///e.preventDefault();
+            history.replace("/persons");
+          }}
+        >
+          <IonIcon icon={contact} />
+          <IonLabel>Personnes</IonLabel>
+        </IonTabButton>
+      </IonTabBar>
+    </IonTabs>
+  );
+};
 
+const App = () => {
+  return (
+    <IonApp>
+      <Provider value={client}>
+        <IonReactRouter>
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route>
+              <Tabs />
+            </Route>
+          </Switch>
+        </IonReactRouter>
+      </Provider>
+      ;
+    </IonApp>
+  );
+};
 export default App;
