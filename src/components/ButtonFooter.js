@@ -1,7 +1,6 @@
 import React from "react";
 import { IonIcon, IonToolbar, IonFooter, IonButton } from "@ionic/react";
 import { addCircle } from "ionicons/icons";
-
 import { useHistory } from "react-router-dom";
 
 const ButtonFooter = ({
