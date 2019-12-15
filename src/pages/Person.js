@@ -70,7 +70,7 @@ const Task = ({ match }) => {
         <GraphQLFetch
           query={getPerson}
           variables={{ id: personId }}
-          render={({ data, refetch }) => {
+          render={({ data }) => {
             const person = data.person;
             return (
               <div>
@@ -100,7 +100,7 @@ const Task = ({ match }) => {
                           // cant change state from this page.
                           onClick: e => {
                             e.preventDefault();
-                            onTaskCheckBoxClick(task, refetch);
+                            onTaskCheckBoxClick(task);
                           }
                         }}
                       />
