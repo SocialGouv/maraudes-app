@@ -38,11 +38,10 @@ const Task = ({ match }) => {
   const onTaskCheckBoxClick = (task, cb) => {
     executeMutation({
       id: task.id,
-      completed_by: currentUserId,
-      completed_at: new Date().toISOString()
+      completed_by: task.completed_at ? null : currentUserId,
+      completed_at: task.completed_at ? null : new Date().toISOString()
     })
       .then(result => {
-        console.log("result", result);
         if (result.error) {
           throw result.error;
         }
@@ -73,7 +72,6 @@ const Task = ({ match }) => {
           variables={{ id: personId }}
           render={({ data, refetch }) => {
             const person = data.person;
-            console.log("person", person);
             return (
               <div>
                 <IonCard class="card">
@@ -102,12 +100,7 @@ const Task = ({ match }) => {
                           // cant change state from this page.
                           onClick: e => {
                             e.preventDefault();
-                            // cancel action when already checked
-                            if (!task.completed_at) {
-                              onTaskCheckBoxClick(task, refetch);
-                            } else {
-                              e.target.checked = !e.target.checked;
-                            }
+                            onTaskCheckBoxClick(task, refetch);
                           }
                         }}
                       />
