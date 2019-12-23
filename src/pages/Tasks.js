@@ -45,8 +45,8 @@ export const Tasks = () => {
   const onCheckBoxClick = (task, cb) => {
     executeMutation({
       id: task.id,
-      completed_by: currentUserId,
-      completed_at: new Date().toISOString()
+      completed_by: task.completed_at ? null : currentUserId,
+      completed_at: task.completed_at ? null : new Date().toISOString()
     })
       .then(result => {
         console.log("result", result);
@@ -91,18 +91,17 @@ export const Tasks = () => {
                   checkboxProps={{
                     onClick: e => {
                       e.preventDefault();
-                      // cancel action when already checked
-                      if (!task.completed_at) {
-                        onCheckBoxClick(task);
-                      } else {
-                        e.target.checked = !e.target.checked;
-                      }
+                      onCheckBoxClick(task);
                     },
                     checked: !!task.completed_at,
                     children: <IonCheckbox />
                   }}
                 />
-              ))) || <div>Aucune demande en cours</div>
+              ))) || (
+              <div style={{ marginTop: "20vh", textAlign: "center" }}>
+                Aucune demande en cours
+              </div>
+            )
           }
         />
       </IonContent>

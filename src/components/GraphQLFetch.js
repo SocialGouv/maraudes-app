@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "urql";
-import { IonSpinner } from "@ionic/react";
+import { IonButton, IonSpinner } from "@ionic/react";
 // render props to fetch data with GraphQL render({result, refetch});
 
 const GraphQLFetch = ({ query, variables = {}, render }) => {
@@ -13,9 +13,24 @@ const GraphQLFetch = ({ query, variables = {}, render }) => {
     >
       {({ fetching, data, error, executeQuery, extensions }) => {
         if (fetching) {
-          return <IonSpinner />;
+          return (
+            <div style={{ textAlign: "center", marginTop: "20vh" }}>
+              <IonSpinner />
+            </div>
+          );
         } else if (error) {
-          return "Error";
+          return (
+            <div style={{ textAlign: "center", marginTop: "20vh" }}>
+              Une erreur est apparue :/
+              <br />
+              <br />
+              <br />
+              <br />
+              <IonButton onClick={() => document.location.reload()}>
+                Recharger l&apos;application
+              </IonButton>
+            </div>
+          );
         }
         return render({
           data,
