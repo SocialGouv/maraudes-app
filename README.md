@@ -3,7 +3,6 @@
 ## Dev
 
 ```sh
-docker-compose up
 yarn
 yarn start
 ```
